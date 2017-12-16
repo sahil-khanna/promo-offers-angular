@@ -25,20 +25,16 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.webservice.execute({
-      method: this.webservice.METHOD_LOGIN,
+      method: 'login',
       body: {
         email: this.email,
         password: this.password,
       },
-      priority: 'high'
-    }).subscribe(
-      _response => {
-        debugger;
-      },
-      _error => {
+      priority: 'high',
+      callback: function(resp) {
         debugger;
       }
-    );
+    });
   }
 
 }

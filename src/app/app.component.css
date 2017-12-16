@@ -5,3 +5,17 @@
 .example-spacer {
     flex: 1 1 auto;
 }
+
+.spinner {
+    background: #928d8db8;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+}
+
+.spinner > mat-spinner {
+    margin: auto;
+    top: 40vh;
+}
