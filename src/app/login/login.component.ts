@@ -1,6 +1,5 @@
 import { Component, OnInit, NgModule } from '@angular/core';
 import { WebServiceService } from '../common/service/web-service/web-service.service';
-import { error } from 'selenium-webdriver';
 import { EmailValidator } from '@angular/forms';
 
 @NgModule({
@@ -25,14 +24,21 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    debugger;
     this.webservice.execute({
       method: this.webservice.METHOD_LOGIN,
       body: {
         email: this.email,
-        password: this.password
+        password: this.password,
+      },
+      priority: 'high'
+    }).subscribe(
+      _response => {
+        debugger;
+      },
+      _error => {
+        debugger;
       }
-    });
+    );
   }
 
 }
