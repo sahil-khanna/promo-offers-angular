@@ -4,12 +4,13 @@ import { NgModule } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 import { MaterialModule } from './material.module';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { WebServiceService } from './common/service/web-service/web-service.service';
+import { Utils } from './common/service/utils.service';
 
 const appRoutes = [
   {
@@ -34,12 +35,14 @@ const appRoutes = [
     MaterialModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
+    ReactiveFormsModule,
     FormsModule
   ],
   providers: [
     WebServiceService,
     HttpClientModule,
-    HttpClient
+    HttpClient,
+    Utils
   ],
   bootstrap: [AppComponent]
 })

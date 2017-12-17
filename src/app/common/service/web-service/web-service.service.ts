@@ -27,6 +27,7 @@ interface CurrentlyExecuting {
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
+import { Utils } from '../utils.service';
 
 @Injectable()
 export class WebServiceService {
@@ -37,7 +38,7 @@ export class WebServiceService {
   private callback: Function = null;
   private currentlyExecuting: CurrentlyExecuting = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private utils: Utils) { }
 
   execute(payload: WebServiceParams) {
     if (payload == null) {
@@ -77,7 +78,7 @@ export class WebServiceService {
     }
 
     if (payload.loadingMessage != null) {
-        // TODO: Show loading indicator with message
+      this.utils.showLoadingIndicator(true);
     }
 
     this.currentlyExecuting = {payload: payload};
@@ -125,7 +126,7 @@ export class WebServiceService {
       this.callback(_response);
 
       if (this.currentlyExecuting.payload.loadingMessage != null) {
-          // TODO: hide loading indicator
+        this.utils.showLoadingIndicator(false);
       }
 
       // Remove item from appropriate queue
@@ -144,8 +145,8 @@ export class WebServiceService {
       responseType: 'json',
       observe: 'response'
     }).subscribe(
-      _response => {
-        onComplete({code: 0});
+      (_response: any) => {
+        onComplete(_response.body);
       },
       _error => {
         onComplete({code: -1});

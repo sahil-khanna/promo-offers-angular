@@ -1,34 +1,37 @@
-import { Component, OnInit, NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
+import { NgModel } from '@angular/forms';
 import { WebServiceService } from '../common/service/web-service/web-service.service';
-import { EmailValidator } from '@angular/forms';
-
-@NgModule({
-  imports: [
-    EmailValidator
-  ]
-})
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
-  public email: String;
-  public password: String;
+  public email: FormControl = new FormControl();
+  public password: FormControl = new FormControl();
+  public form = new FormGroup({
+    email: this.email,
+    password: this.password,
+  });
 
   constructor(private webservice: WebServiceService) { }
 
-  ngOnInit() {
-  }
-
   login() {
+    if (this.form.invalid) {
+      this.email.markAsTouched();
+      this.password.markAsTouched();
+      return;
+    }
+
+    const $this = this;
     this.webservice.execute({
       method: 'login',
       body: {
-        email: this.email,
-        password: this.password,
+        email: this.email.value,
+        password: this.password.value,
       },
       priority: 'high',
       callback: function(resp) {

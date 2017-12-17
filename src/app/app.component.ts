@@ -1,5 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { Router} from '@angular/router';
+import { Utils } from './common/service/utils.service';
 
 @NgModule({
   imports: [
@@ -14,7 +15,7 @@ import { Router} from '@angular/router';
 })
 export class AppComponent {
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private utils: Utils) {
     this.router.navigate(['login']);
   }
 
