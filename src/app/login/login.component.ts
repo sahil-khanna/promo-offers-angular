@@ -1,7 +1,8 @@
-import { Component, NgModule } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { WebServiceService } from '../common/service/web-service/web-service.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,11 @@ export class LoginComponent {
     password: this.password,
   });
 
-  constructor(private webservice: WebServiceService) { }
+  constructor(private webservice: WebServiceService, private router: Router) { }
+
+  register() {
+    this.router.navigate(['register']);
+  }
 
   login() {
     if (this.form.invalid) {

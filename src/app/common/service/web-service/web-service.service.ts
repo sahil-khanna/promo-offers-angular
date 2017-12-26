@@ -1,5 +1,5 @@
 interface WebServiceParams {
-  method: 'login' | 'signin';
+  method: 'login' | 'register';
   body?: any;
   urlParams?: any;
   priority: 'high' | 'low';
@@ -94,7 +94,7 @@ export class WebServiceService {
         body: payload.body,
         url: this.baseUrl + '/' + payload.method + '/' + this.processURLParameters(payload.urlParams)
       };
-    } else if (payload.method === 'signin') {
+    } else if (payload.method === 'register') {
       reqParams = {
         type: 'POST',
         body: payload.body,
@@ -122,7 +122,9 @@ export class WebServiceService {
 
   private triggerRequest(reqParams: RequestParams) {
     const onComplete = (_response: RespoonseMessage) => {
-      this.currentlyExecuting.request.unsubscribe();
+      if (this.currentlyExecuting.request) {
+        this.currentlyExecuting.request.unsubscribe();
+      }
       this.callback(_response);
 
       if (this.currentlyExecuting.payload.loadingMessage != null) {
