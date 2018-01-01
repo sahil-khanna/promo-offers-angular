@@ -5,7 +5,15 @@ export class Utils {
 
     public showLoading: Boolean = false;
 
-    showLoadingIndicator(value: Boolean, message?: string) {
+    public showLoadingIndicator(value: Boolean, message?: string) {
         this.showLoading = value;
+    }
+
+    public nullToObject(sourceType, targetType) {
+        if (typeof sourceType === 'number' || typeof sourceType === 'boolean') {
+            return sourceType;
+        } else {
+            return (sourceType == null) ? targetType : sourceType;
+        }
     }
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { WebServiceService } from '../common/service/web-service/web-service.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertHelper } from '../common/service/alert-helper.service';
 
 @Component({
   selector: 'app-register',
@@ -28,13 +29,17 @@ export class RegisterComponent {
     gender: this.gender
   });
 
-  constructor(private webservice: WebServiceService, private router: Router) { }
+  constructor(
+    private webservice: WebServiceService,
+    private router: Router,
+    private alertHelper: AlertHelper
+  ) { }
 
-  login() {
+  public login() {
     this.router.navigate(['register']);
   }
 
-  register() {
+  public register() {
     if (this.form.invalid || this.password.value !== this.confirmPassword.value) {
       this.email.markAsTouched();
       this.password.markAsTouched();
@@ -58,8 +63,10 @@ export class RegisterComponent {
         gender: this.gender.value === '1'
       },
       priority: 'high',
-      callback: function(resp) {
-        debugger;
+      callback: function(resp: any) {
+        $this.alertHelper.push({
+          text: resp.message
+        });
       }
     });
   }

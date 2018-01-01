@@ -3,6 +3,7 @@ import { NgModel } from '@angular/forms';
 import { WebServiceService } from '../common/service/web-service/web-service.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router} from '@angular/router';
+import { AlertHelper } from '../common/service/alert-helper.service';
 
 @Component({
   selector: 'app-login',
@@ -18,13 +19,17 @@ export class LoginComponent {
     password: this.password,
   });
 
-  constructor(private webservice: WebServiceService, private router: Router) { }
+  constructor(
+    private webservice: WebServiceService,
+    private router: Router,
+    private alertHelper: AlertHelper
+  ) { }
 
-  register() {
+  public register() {
     this.router.navigate(['register']);
   }
 
-  login() {
+  public login() {
     if (this.form.invalid) {
       this.email.markAsTouched();
       this.password.markAsTouched();
@@ -40,7 +45,12 @@ export class LoginComponent {
       },
       priority: 'high',
       callback: function(resp) {
-        debugger;
+        if (resp.code !== 0) {
+          $this.alertHelper.push({
+            text: resp.message,
+            type: 'error'
+          });
+        }
       }
     });
   }

@@ -11,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { WebServiceService } from './common/service/web-service/web-service.service';
 import { Utils } from './common/service/utils.service';
+import { AlertHelper } from './common/service/alert-helper.service';
 
 const appRoutes = [
   {
@@ -42,7 +43,8 @@ const appRoutes = [
     WebServiceService,
     HttpClientModule,
     HttpClient,
-    Utils
+    Utils,
+    AlertHelper
   ],
   bootstrap: [AppComponent]
 })

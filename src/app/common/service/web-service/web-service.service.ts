@@ -28,6 +28,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { Utils } from '../utils.service';
+import { Constants } from '../../constants';
 
 @Injectable()
 export class WebServiceService {
@@ -40,7 +41,7 @@ export class WebServiceService {
 
   constructor(private http: HttpClient, private utils: Utils) { }
 
-  execute(payload: WebServiceParams) {
+  public execute(payload: WebServiceParams) {
     if (payload == null) {
       return;
     }
@@ -151,7 +152,10 @@ export class WebServiceService {
         onComplete(_response.body);
       },
       _error => {
-        onComplete({code: -1});
+        onComplete({
+          code: -1,
+          message: Constants.WEBSERVICE_INTERNET_NOT_CONNNECTED
+        });
       }
     );
   }
