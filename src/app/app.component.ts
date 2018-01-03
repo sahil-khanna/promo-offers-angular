@@ -1,12 +1,5 @@
-import { Component, NgModule } from '@angular/core';
-import { Router} from '@angular/router';
+import { Component } from '@angular/core';
 import { Utils } from './common/service/utils.service';
-
-@NgModule({
-  imports: [
-    Router
-  ]
-})
 
 @Component({
   selector: 'app-root',
@@ -15,8 +8,7 @@ import { Utils } from './common/service/utils.service';
 })
 export class AppComponent {
 
-  constructor(private router: Router, private utils: Utils) {
-    this.router.navigate(['login']);
+  constructor(private utils: Utils) {
   }
 
 }

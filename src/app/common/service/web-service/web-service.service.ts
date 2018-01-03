@@ -1,5 +1,5 @@
 interface WebServiceParams {
-  method: 'login' | 'register';
+  method: 'login' | 'register' | 'activate-account';
   body?: any;
   urlParams?: any;
   priority: 'high' | 'low';
@@ -89,18 +89,25 @@ export class WebServiceService {
   private buildRequest(payload: WebServiceParams) {
     let reqParams: RequestParams = null;
 
-    if (payload.method === 'login') {
-      reqParams = {
-        type: 'POST',
-        body: payload.body,
-        url: this.baseUrl + '/' + payload.method + '/' + this.processURLParameters(payload.urlParams)
-      };
-    } else if (payload.method === 'register') {
-      reqParams = {
-        type: 'POST',
-        body: payload.body,
-        url: this.baseUrl + '/' + payload.method + '/' + this.processURLParameters(payload.urlParams)
-      };
+    switch (payload.method) {
+      case 'login':
+      case 'register': {
+        reqParams = {
+          type: 'POST',
+          body: payload.body,
+          url: this.baseUrl + '/' + payload.method + '/' + this.processURLParameters(payload.urlParams)
+        };
+        break;
+      }
+      case 'activate-account': {
+        reqParams = {
+          type: 'GET',
+          url: this.baseUrl + '/' + payload.method + '/' + this.processURLParameters(payload.urlParams)
+        };
+        break;
+      }
+      default:
+        break;
     }
 
     this.triggerRequest(reqParams);
@@ -111,10 +118,10 @@ export class WebServiceService {
       return '';
     }
 
-    const stringified: String = '';
+    let stringified: String = '';
     for (const key in payload) {
       if (payload.hasOwnProperty(key)) {
-        stringified.concat(key + '/' + payload[key]);
+        stringified += key + '/' + payload[key];
       }
     }
 

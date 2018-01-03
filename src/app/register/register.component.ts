@@ -36,7 +36,7 @@ export class RegisterComponent {
   ) { }
 
   public login() {
-    this.router.navigate(['register']);
+    this.router.navigate(['login']);
   }
 
   public register() {
@@ -62,11 +62,14 @@ export class RegisterComponent {
         lastName: this.lastName.value,
         gender: this.gender.value === '1'
       },
+      loadingMessage: '',
       priority: 'high',
       callback: function(resp: any) {
         $this.alertHelper.push({
           text: resp.message
         });
+
+        console.log(resp.data);
       }
     });
   }

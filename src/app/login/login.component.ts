@@ -43,6 +43,7 @@ export class LoginComponent {
         email: this.email.value,
         password: this.password.value,
       },
+      loadingMessage: '',
       priority: 'high',
       callback: function(resp) {
         if (resp.code !== 0) {

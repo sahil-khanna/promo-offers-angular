@@ -12,23 +12,23 @@ import { RegisterComponent } from './register/register.component';
 import { WebServiceService } from './common/service/web-service/web-service.service';
 import { Utils } from './common/service/utils.service';
 import { AlertHelper } from './common/service/alert-helper.service';
+import { HomeComponent } from './home/home.component';
+import { ActivateAccountComponent } from './activate-account/activate-account.component';
 
 const appRoutes = [
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'register',
-    component: RegisterComponent
-  }
+  { path: '', component: LoginComponent, pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'activate-account/:key', component: ActivateAccountComponent }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    HomeComponent,
+    ActivateAccountComponent
   ],
   imports: [
     BrowserModule,
