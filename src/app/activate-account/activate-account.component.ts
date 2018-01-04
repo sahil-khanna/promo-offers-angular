@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Utils } from '../common/service/utils.service';
+import { AlertHelper } from '../common/service/alert-helper.service';
 import { WebServiceService } from '../common/service/web-service/web-service.service';
 import { ActivatedRoute, Params } from '@angular/router';
 
@@ -13,7 +14,8 @@ export class ActivateAccountComponent implements OnInit {
   constructor(
     private utils: Utils,
     private webservice: WebServiceService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private alertHelper: AlertHelper
   ) { }
 
   ngOnInit() {
@@ -23,13 +25,18 @@ export class ActivateAccountComponent implements OnInit {
   }
 
   private activateAccount(key: string) {
+    const $this = this;
     this.webservice.execute({
       method: 'activate-account',
       urlParams: {key: key},
       priority: 'high',
       loadingMessage: 'Please wait',
       callback: function(resp) {
-        debugger;
+        if (resp.code === 0) {
+          $this.alertHelper.push({text: resp.message});
+        } else {
+          $this.alertHelper.push({text: resp.message});
+        }
       }
     });
   }
