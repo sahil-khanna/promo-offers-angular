@@ -1,5 +1,5 @@
 interface WebServiceParams {
-  method: 'login' | 'register' | 'activate-account' | 'forgot-password';
+  method: 'login' | 'register' | 'activate-account' | 'forgot-password' | 'reset-password';
   body?: any;
   urlParams?: any;
   priority: 'high' | 'low';
@@ -27,8 +27,8 @@ interface CurrentlyExecuting {
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
-import { Utils } from '../utils.service';
-import { Constants } from '../../constants';
+import { Utils } from './utils.service';
+import { Constants } from '../constants';
 
 @Injectable()
 export class WebServiceService {
@@ -103,6 +103,14 @@ export class WebServiceService {
       case 'forgot-password': {
         reqParams = {
           type: 'GET',
+          url: this.baseUrl + '/' + payload.method + '/' + this.processURLParameters(payload.urlParams)
+        };
+        break;
+      }
+      case 'reset-password': {
+        reqParams = {
+          type: 'PUT',
+          body: payload.body,
           url: this.baseUrl + '/' + payload.method + '/' + this.processURLParameters(payload.urlParams)
         };
         break;

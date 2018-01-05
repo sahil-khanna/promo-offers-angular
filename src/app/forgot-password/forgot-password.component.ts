@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { WebServiceService } from '../common/service/web-service/web-service.service';
+import { WebServiceService } from '../common/service/web-service.service';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Router} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AlertHelper } from '../common/service/alert-helper.service';
 
 @Component({
@@ -18,8 +18,15 @@ export class ForgotPasswordComponent {
 
   constructor(
     private webservice: WebServiceService,
-    private alertHelper: AlertHelper
-  ) { }
+    private alertHelper: AlertHelper,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
+    const $this = this;
+    this.activatedRoute.queryParams.subscribe((params: any) => {
+      $this.email.setValue(params.email);
+    });
+  }
 
   public submit() {
     if (this.form.invalid) {
@@ -35,13 +42,16 @@ export class ForgotPasswordComponent {
       },
       loadingMessage: '',
       priority: 'high',
-      callback: function(resp) {
-        // if (resp.code !== 0) {
-          $this.alertHelper.push({
-            text: resp.message,
-            type: 'error'
-          });
-        // }
+      callback: function(_response) {
+        $this.alertHelper.push({
+          text: _response.message,
+          type: (_response.code === 0) ? 'success' : 'error',
+          onConfirm: function() {
+            $this.router.navigate(['login']);
+          }
+        });
+
+        console.log(_response.data); // Print password reset URL on console
       }
     });
   }

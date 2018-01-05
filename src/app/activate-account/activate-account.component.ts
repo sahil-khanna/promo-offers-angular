@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Utils } from '../common/service/utils.service';
 import { AlertHelper } from '../common/service/alert-helper.service';
-import { WebServiceService } from '../common/service/web-service/web-service.service';
+import { WebServiceService } from '../common/service/web-service.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({

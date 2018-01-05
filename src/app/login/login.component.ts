@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { WebServiceService } from '../common/service/web-service/web-service.service';
+import { WebServiceService } from '../common/service/web-service.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AlertHelper } from '../common/service/alert-helper.service';
 
@@ -38,13 +38,11 @@ export class LoginComponent {
       },
       loadingMessage: '',
       priority: 'high',
-      callback: function(resp) {
-        if (resp.code !== 0) {
-          $this.alertHelper.push({
-            text: resp.message,
-            type: 'error'
-          });
-        }
+      callback: function(_response) {
+        $this.alertHelper.push({
+          text: _response.message,
+          type: (_response.code === 0) ? 'success' : 'error'
+        });
       }
     });
   }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { WebServiceService } from '../common/service/web-service/web-service.service';
+import { WebServiceService } from '../common/service/web-service.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertHelper } from '../common/service/alert-helper.service';
@@ -64,12 +64,13 @@ export class RegisterComponent {
       },
       loadingMessage: '',
       priority: 'high',
-      callback: function(resp: any) {
+      callback: function(_response: any) {
         $this.alertHelper.push({
-          text: resp.message
+          text: _response.message,
+          type: (_response.code === 0) ? 'success' : 'error'
         });
 
-        console.log(resp.data);
+        console.log(_response.data); // Print activation URL on console
       }
     });
   }
