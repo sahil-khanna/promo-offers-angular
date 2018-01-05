@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Utils } from '../common/service/utils.service';
 import { AlertHelper } from '../common/service/alert-helper.service';
 import { WebServiceService } from '../common/service/web-service/web-service.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-activate-account',
@@ -15,7 +15,8 @@ export class ActivateAccountComponent implements OnInit {
     private utils: Utils,
     private webservice: WebServiceService,
     private activatedRoute: ActivatedRoute,
-    private alertHelper: AlertHelper
+    private alertHelper: AlertHelper,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -31,12 +32,14 @@ export class ActivateAccountComponent implements OnInit {
       urlParams: {key: key},
       priority: 'high',
       loadingMessage: 'Please wait',
-      callback: function(resp) {
-        if (resp.code === 0) {
-          $this.alertHelper.push({text: resp.message});
-        } else {
-          $this.alertHelper.push({text: resp.message});
-        }
+      callback: function(_response) {
+        $this.alertHelper.push({
+          text: _response.message,
+          type: (_response.code === 0) ? 'success' : 'error',
+          onConfirm: function() {
+            $this.router.navigate(['login']);
+          }
+        });
       }
     });
   }

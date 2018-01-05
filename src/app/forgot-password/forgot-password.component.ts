@@ -1,20 +1,19 @@
 import { Component } from '@angular/core';
 import { WebServiceService } from '../common/service/web-service/web-service.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router} from '@angular/router';
 import { AlertHelper } from '../common/service/alert-helper.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  selector: 'app-forgot-password',
+  templateUrl: './forgot-password.component.html',
+  styleUrls: ['./forgot-password.component.css']
 })
-export class LoginComponent {
+export class ForgotPasswordComponent {
 
   public email: FormControl = new FormControl();
-  public password: FormControl = new FormControl();
   public form = new FormGroup({
-    email: this.email,
-    password: this.password,
+    email: this.email
   });
 
   constructor(
@@ -22,29 +21,27 @@ export class LoginComponent {
     private alertHelper: AlertHelper
   ) { }
 
-  public login() {
+  public submit() {
     if (this.form.invalid) {
       this.email.markAsTouched();
-      this.password.markAsTouched();
       return;
     }
 
     const $this = this;
     this.webservice.execute({
-      method: 'login',
-      body: {
-        email: this.email.value,
-        password: this.password.value,
+      method: 'forgot-password',
+      urlParams: {
+        email: this.email.value
       },
       loadingMessage: '',
       priority: 'high',
       callback: function(resp) {
-        if (resp.code !== 0) {
+        // if (resp.code !== 0) {
           $this.alertHelper.push({
             text: resp.message,
             type: 'error'
           });
-        }
+        // }
       }
     });
   }

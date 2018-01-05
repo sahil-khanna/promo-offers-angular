@@ -52,8 +52,7 @@ export class AlertHelper {
       title: payload.title || 'Alert',
       text: payload.text,
       type: payload.type || 'info',
-      showCloseButton: true,
-      showConfirmButton: ('confirmButtonText' in payload),
+      showConfirmButton: true,
       confirmButtonText: this.utils.nullToObject(payload.confirmButtonText, 'OK'),
       showCancelButton: ('cancelButtonText' in payload),
       cancelButtonText: this.utils.nullToObject(payload.cancelButtonText, 'Cancel'),
@@ -75,10 +74,11 @@ export class AlertHelper {
         }
       },
       (dismiss) => {
+        debugger;
         if (dismiss === 'cancel' && typeof payload.onCancel) {
           payload.onCancel();
         }
-        if (dismiss === 'close' && typeof payload.onClose === 'function') {
+        if (dismiss === 'close' && typeof payload.onClose) {
             payload.onClose();
         }
       }

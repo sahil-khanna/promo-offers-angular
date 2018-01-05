@@ -1,4 +1,10 @@
-<form [formGroup]="form" (ngSubmit)="register()">
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Register</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="col-md-6 col-md-offset-3">
+  <form [formGroup]="form" (ngSubmit)="register()">
     <mat-form-field class="full-width">
       <!-- TODO: Add pattern for first and last name: pattern="/^[a-zA-Z]+$/g" -->
       <input type="text" matInput placeholder="first name" formControlName="firstName" minlength="3" maxlength="20" required> 
@@ -26,7 +32,7 @@
       <p *ngIf="email.errors.minlength">E-mail must be atleast {{email.errors.minlength.requiredLength}} characters long</p>
       <p *ngIf="email.errors.pattern && !email.errors.minlength">Enter valid e-mail</p>
     </div>
-  
+
     <mat-form-field class="full-width">
       <input type="password" matInput placeholder="password" formControlName="password" minlength="5" maxlength="20" required>
     </mat-form-field>
@@ -63,9 +69,12 @@
     <div class="form-error-message" *ngIf="gender.errors && (gender.dirty || gender.touched)">
       <p *ngIf="gender.errors && gender.errors.required">Gender is required</p>
     </div>
-  
+
     <br><br>
     
-    <button mat-button type="submit">Register</button>
-    <button mat-button type="button" (click)="login()">Login</button>
+    <p style="text-align: center">
+      <button mat-raised-button color="primary" type="submit">Register</button>
+    </p>
+    <button mat-button type="button" [routerLink]="['/login']">Login</button>
   </form>
+</div>

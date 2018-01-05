@@ -1,5 +1,5 @@
 interface WebServiceParams {
-  method: 'login' | 'register' | 'activate-account';
+  method: 'login' | 'register' | 'activate-account' | 'forgot-password';
   body?: any;
   urlParams?: any;
   priority: 'high' | 'low';
@@ -99,7 +99,8 @@ export class WebServiceService {
         };
         break;
       }
-      case 'activate-account': {
+      case 'activate-account':
+      case 'forgot-password': {
         reqParams = {
           type: 'GET',
           url: this.baseUrl + '/' + payload.method + '/' + this.processURLParameters(payload.urlParams)

@@ -1,21 +1,33 @@
-<form [formGroup]="form" (ngSubmit)="login()">
-  <mat-form-field class="full-width">
-    <input type="email" matInput placeholder="e-mail" formControlName="email" minlength="8" maxlength="50" required pattern="^\w+[\w-\.]*\@\w+((-\w+)|(\w*))\.[a-z]{2,3}$">
-  </mat-form-field>
-  <div class="form-error-message" *ngIf="email.errors && (email.dirty || email.touched)">
-    <p *ngIf="email.errors.required">E-mail is required</p>
-    <p *ngIf="email.errors.minlength">E-mail must be atleast {{email.errors.minlength.requiredLength}} characters long</p>
-    <p *ngIf="email.errors.pattern && !email.errors.minlength">Enter valid e-mail</p>
-  </div>
-
-  <mat-form-field class="full-width">
-    <input type="password" matInput placeholder="password" formControlName="password" minlength="5" maxlength="20" required>
-  </mat-form-field>
-  <div class="form-error-message" *ngIf="password.errors && (password.dirty || password.touched)">
-    <p *ngIf="password.errors.required">Password is required</p>
-    <p *ngIf="password.errors.minlength">Password must be atleast {{password.errors.minlength.requiredLength}} characters long</p>
-  </div>
-
-  <button mat-button type="submit">Login</button>
-  <button mat-button type="button" (click)="register()">Register</button>
-</form>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Login</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="col-md-6 col-md-offset-3">
+  <form [formGroup]="form" (ngSubmit)="login()" class="form">
+    <mat-form-field class="full-width">
+      <input type="email" matInput placeholder="e-mail" formControlName="email" minlength="8" maxlength="50" required pattern="^\w+[\w-\.]*\@\w+((-\w+)|(\w*))\.[a-z]{2,3}$">
+    </mat-form-field>
+    <div class="form-error-message" *ngIf="email.errors && (email.dirty || email.touched)">
+      <p *ngIf="email.errors.required">E-mail is required</p>
+      <p *ngIf="email.errors.minlength">E-mail must be atleast {{email.errors.minlength.requiredLength}} characters long</p>
+      <p *ngIf="email.errors.pattern && !email.errors.minlength">Enter valid e-mail</p>
+    </div>
+  
+    <mat-form-field class="full-width">
+      <input type="password" matInput placeholder="password" formControlName="password" minlength="5" maxlength="20" required>
+    </mat-form-field>
+    <div class="form-error-message" *ngIf="password.errors && (password.dirty || password.touched)">
+      <p *ngIf="password.errors.required">Password is required</p>
+      <p *ngIf="password.errors.minlength">Password must be atleast {{password.errors.minlength.requiredLength}} characters long</p>
+    </div>
+  
+    <p style="text-align: center">
+      <button mat-raised-button color="primary" type="submit">Login</button>
+    </p>
+    <br>
+    <button mat-button type="button" [routerLink]="['/forgot-password']">Forgot Password</button>
+    <button mat-button type="button" [routerLink]="['/register']" class="right-aligned">Register</button>
+    <br>
+  </form>
+</div>

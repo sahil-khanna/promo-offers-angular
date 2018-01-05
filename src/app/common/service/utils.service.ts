@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class Utils {
 
-    public showLoading: Boolean = false;
+    public showLoading: boolean;
 
-    public showLoadingIndicator(value: Boolean, message?: string) {
+    public showLoadingIndicator(value: boolean, message?: string) {
         this.showLoading = value;
     }
 

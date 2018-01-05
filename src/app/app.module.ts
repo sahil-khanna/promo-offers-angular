@@ -14,12 +14,14 @@ import { Utils } from './common/service/utils.service';
 import { AlertHelper } from './common/service/alert-helper.service';
 import { HomeComponent } from './home/home.component';
 import { ActivateAccountComponent } from './activate-account/activate-account.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 const appRoutes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'activate-account/:key', component: ActivateAccountComponent }
+  { path: 'activate-account/:key', component: ActivateAccountComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent }
 ];
 
 @NgModule({
@@ -28,7 +30,8 @@ const appRoutes = [
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    ActivateAccountComponent
+    ActivateAccountComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
