@@ -74,7 +74,6 @@ export class AlertHelper {
         }
       },
       (dismiss) => {
-        debugger;
         if (dismiss === 'cancel' && typeof payload.onCancel) {
           payload.onCancel();
         }

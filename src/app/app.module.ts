@@ -12,6 +12,7 @@ import { RegisterComponent } from './register/register.component';
 import { WebServiceService } from './common/service/web-service.service';
 import { Utils } from './common/service/utils.service';
 import { AlertHelper } from './common/service/alert-helper.service';
+import { StorageService } from './common/service/storage.service';
 import { HomeComponent } from './home/home.component';
 import { ActivateAccountComponent } from './activate-account/activate-account.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
@@ -23,7 +24,8 @@ const appRoutes = [
   { path: 'register', component: RegisterComponent },
   { path: 'activate-account/:key', component: ActivateAccountComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'reset-password', component: ResetPasswordComponent }
+  { path: 'reset-password', component: ResetPasswordComponent },
+  { path: 'home', component: HomeComponent }
 ];
 
 @NgModule({
@@ -50,7 +52,8 @@ const appRoutes = [
     HttpClientModule,
     HttpClient,
     Utils,
-    AlertHelper
+    AlertHelper,
+    StorageService
   ],
   bootstrap: [AppComponent]
 })

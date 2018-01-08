@@ -1,5 +1,5 @@
 interface WebServiceParams {
-  method: 'login' | 'register' | 'activate-account' | 'forgot-password' | 'reset-password';
+  method: 'login' | 'register' | 'activate-account' | 'forgot-password' | 'reset-password' | 'logout';
   body?: any;
   urlParams?: any;
   priority: 'high' | 'low';
@@ -55,6 +55,13 @@ export class WebServiceService {
     }
 
     this.processNext();
+  }
+
+  public clear() {
+    this.currentlyExecuting.request.unsubscribe();
+    this.highPriorityQueue = [];
+    this.lowPriorityQueue = [];
+    this.currentlyExecuting = null;
   }
 
   private processNext() {

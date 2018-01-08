@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { WebServiceService } from '../common/service/web-service.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AlertHelper } from '../common/service/alert-helper.service';
+import { StorageService } from '../common/service/storage.service';
+import { Constants } from '../common/constants';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +22,9 @@ export class LoginComponent {
 
   constructor(
     private webservice: WebServiceService,
-    private alertHelper: AlertHelper
+    private alertHelper: AlertHelper,
+    private router: Router,
+    private storage: StorageService
   ) { }
 
   public login() {
@@ -39,10 +44,16 @@ export class LoginComponent {
       loadingMessage: '',
       priority: 'high',
       callback: function(_response) {
-        $this.alertHelper.push({
-          text: _response.message,
-          type: (_response.code === 0) ? 'success' : 'error'
-        });
+        if (_response.code === 0) {
+          $this.storage.setDataForKey(Constants.USER_PROFILE, _response.data.profile);
+          $this.storage.setDataForKey(Constants.TOKEN, _response.data.token);
+          $this.router.navigate(['/home']);
+        } else {
+          $this.alertHelper.push({
+            text: _response.message,
+            type: 'error'
+          });
+        }
       }
     });
   }
