@@ -17,15 +17,17 @@ import { HomeComponent } from './home/home.component';
 import { ActivateAccountComponent } from './activate-account/activate-account.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const appRoutes = [
-  { path: '', component: LoginComponent, pathMatch: 'full' },
+  { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'activate-account/:key', component: ActivateAccountComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'home', component: HomeComponent }
+  { path: 'home', component: HomeComponent },
+  { path: 'profile', component: ProfileComponent }
 ];
 
 @NgModule({
@@ -36,7 +38,8 @@ const appRoutes = [
     HomeComponent,
     ActivateAccountComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -48,12 +51,12 @@ const appRoutes = [
     FormsModule
   ],
   providers: [
-    WebServiceService,
     HttpClientModule,
     HttpClient,
     Utils,
     AlertHelper,
-    StorageService
+    StorageService,
+    WebServiceService
   ],
   bootstrap: [AppComponent]
 })

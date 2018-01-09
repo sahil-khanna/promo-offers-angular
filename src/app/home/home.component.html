@@ -6,11 +6,11 @@
 </mat-toolbar>
 
 <mat-menu #menu>
-  <button mat-menu-item>
+  <button mat-menu-item [routerLink]="['/profile']">
     <mat-icon>account_circle</mat-icon>
-    <span>Account</span>
+    <span>Profile</span>
   </button>
-  <button mat-menu-item>
+  <button mat-menu-item (click)="utils.logout()">
     <mat-icon>exit_to_app</mat-icon>
     <span>Logout</span>
   </button>

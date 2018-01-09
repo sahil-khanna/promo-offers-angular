@@ -1,0 +1,60 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <mat-icon (click)="utils.goBack()">arrow_back</mat-icon>
+    <span>Profile</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="col-md-6 col-md-offset-3">
+  <form [formGroup]="form" (ngSubmit)="update()" class="form">
+    <mat-form-field>
+      <input type="text" matInput placeholder="first name" formControlName="firstName" minlength="3" maxlength="20" required> 
+    </mat-form-field>
+    <div class="form-error-message" *ngIf="firstName.errors && (firstName.dirty || firstName.touched)">
+      <p *ngIf="firstName.errors.required">First Name is required</p>
+      <p *ngIf="firstName.errors.minlength">First Name must be atleast {{firstName.errors.minlength.requiredLength}} characters long</p>
+      <p *ngIf="firstName.errors.pattern && !firstName.errors.minlength">Enter valid first name</p>
+    </div>
+
+    <mat-form-field>
+      <input type="text" matInput placeholder="last name" formControlName="lastName" minlength="3" maxlength="20" required>
+    </mat-form-field>
+    <div class="form-error-message" *ngIf="lastName.errors && (lastName.dirty || lastName.touched)">
+      <p *ngIf="lastName.errors.required">Last Name is required</p>
+      <p *ngIf="lastName.errors.minlength">Last Name must be atleast {{lastName.errors.minlength.requiredLength}} characters long</p>
+      <p *ngIf="lastName.errors.pattern && !lastName.errors.minlength">Enter valid last name</p>
+    </div>
+
+    <mat-form-field>
+      <input type="email" matInput formControlName="email" disabled>
+    </mat-form-field>
+    <div class="form-error-message" *ngIf="email.errors && (email.dirty || email.touched)">
+      <p *ngIf="email.errors.required">E-mail is required</p>
+      <p *ngIf="email.errors.minlength">E-mail must be atleast {{email.errors.minlength.requiredLength}} characters long</p>
+      <p *ngIf="email.errors.pattern && !email.errors.minlength">Enter valid e-mail</p>
+    </div>
+
+    <!-- TODO: Add pattern for mobile: pattern="/^[a-zA-Z]+$/g" -->
+    <mat-form-field>
+      <input type="tel" matInput placeholder="mobile" formControlName="mobile" minlength="10" maxlength="10" required>
+    </mat-form-field>
+    <div class="form-error-message" *ngIf="mobile.errors && (mobile.dirty || mobile.touched)">
+      <p *ngIf="mobile.errors && mobile.errors.required">Mobile is required</p>
+      <p *ngIf="mobile.errors.minlength">Mobile must be atleast {{mobile.errors.minlength.requiredLength}} digits long</p>
+    </div>
+
+    <mat-radio-group formControlName="gender" required>
+      <mat-radio-button value="1">Male</mat-radio-button>
+      <mat-radio-button value="2">Female</mat-radio-button>
+    </mat-radio-group>
+    <br><br>
+    <div class="form-error-message" *ngIf="gender.errors && (gender.dirty || gender.touched)">
+      <p *ngIf="gender.errors && gender.errors.required">Gender is required</p>
+    </div>
+
+    <br><br>
+    
+    <p style="text-align: center">
+      <button mat-raised-button color="primary" type="submit">Update</button>
+    </p>
+  </form>
+</div>

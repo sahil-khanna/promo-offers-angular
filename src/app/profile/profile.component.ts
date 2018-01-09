@@ -1,28 +1,27 @@
-import { Component } from '@angular/core';
-import { WebServiceService } from '../common/service/web-service.service';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { StorageService } from '../common/service/storage.service';
+import { WebServiceService } from '../common/service/web-service.service';
 import { AlertHelper } from '../common/service/alert-helper.service';
+import { Utils } from '../common/service/utils.service';
+import { Constants } from '../common/constants';
 
 @Component({
-    selector: 'app-register',
-    templateUrl: './register.component.html',
-    styleUrls: ['./register.component.css']
+    selector: 'app-profile',
+    templateUrl: './profile.component.html',
+    styleUrls: ['./profile.component.css']
 })
-export class RegisterComponent {
+export class ProfileComponent implements OnInit {
 
-    public email: FormControl = new FormControl();
-    public password: FormControl = new FormControl();
-    public confirmPassword: FormControl = new FormControl();
     public mobile: FormControl = new FormControl();
+    public email: FormControl = new FormControl();
     public firstName: FormControl = new FormControl();
     public lastName: FormControl = new FormControl();
     public gender: FormControl = new FormControl();
 
     public form = new FormGroup({
         email: this.email,
-        password: this.password,
-        confirmPassword: this.confirmPassword,
         mobile: this.mobile,
         firstName: this.firstName,
         lastName: this.lastName,
@@ -30,20 +29,32 @@ export class RegisterComponent {
     });
 
     constructor(
+        private storage: StorageService,
         private webservice: WebServiceService,
-        private router: Router,
-        private alertHelper: AlertHelper
+        private alertHelper: AlertHelper,
+        private utils: Utils
     ) { }
 
-    public login() {
-        this.router.navigate(['login']);
+    ngOnInit() {
+        const profile: any = this.storage.getDataForKey(Constants.USER_PROFILE);
+        this.mobile.setValue(profile.mobile);
+        this.email.setValue(profile.email);
+        this.firstName.setValue(profile.firstName);
+        this.lastName.setValue(profile.lastName);
+        this.gender.setValue((profile.gender === true) ? '1' : '2');
     }
 
-    public register() {
-        if (this.form.invalid || this.password.value !== this.confirmPassword.value) {
+    public update() {
+        if (!this.form.dirty) {
+            this.alertHelper.push({
+                text: 'Profile updated successfully',
+                type: 'success'
+            });
+            return;
+        }
+
+        if (this.form.invalid) {
             this.email.markAsTouched();
-            this.password.markAsTouched();
-            this.confirmPassword.markAsTouched();
             this.mobile.markAsTouched();
             this.firstName.markAsTouched();
             this.lastName.markAsTouched();
@@ -53,10 +64,9 @@ export class RegisterComponent {
 
         const $this = this;
         this.webservice.execute({
-            method: 'register',
+            method: 'profile',
             body: {
                 email: this.email.value,
-                password: this.password.value,
                 mobile: this.mobile.value,
                 firstName: this.firstName.value,
                 lastName: this.lastName.value,
@@ -69,9 +79,8 @@ export class RegisterComponent {
                     text: _response.message,
                     type: (_response.code === 0) ? 'success' : 'error'
                 });
-
-                console.log(_response.data); // Print activation URL on console
             }
         });
     }
+
 }

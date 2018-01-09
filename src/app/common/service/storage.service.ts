@@ -1,84 +1,89 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { Utils } from './utils.service';
 
 
 @Injectable()
 export class StorageService {
 
-  constructor(
-    private utils: Utils
-  ) { }
+    private utils: Utils;
 
-  private encode(value: any) {
-    if (value == null || value.length === 0) {
-        return '';
+    constructor(private injector: Injector) {
+        const $this = this;
+        setTimeout(() => {
+            $this.utils = $this.injector.get(Utils);
+        });
     }
 
-    return window.btoa(value);
-  }
+    private encode(value: any) {
+        if (value == null || value.length === 0) {
+            return '';
+        }
 
-  private decode(value: any) {
-      if (value == null || value.length === 0) {
-          return null;
-      }
-
-      return window.atob(value);
-  }
-
-  /*
-   *  Remove key from Storage
-   */
-  public remove (key: string) {
-    localStorage.removeItem(this.encode(key));
-  }
-
-  /*
-   *  Getter method for LocalStorage
-   */
-  public getDataForKey(key: string) {
-    let data = this.decode(localStorage.getItem(this.encode(key)));
-
-    try {
-      data = JSON.parse(data);        // is Object
-    } catch (e) {
-        // Do Nothing. not an object
+        return window.btoa(value);
     }
 
-    return data;
-  }
+    private decode(value: any) {
+        if (value == null || value.length === 0) {
+            return null;
+        }
 
-  /*
-   *  Setter method for LocalStorage
-   */
-  public setDataForKey(key: string, data: any) {
-    if (data == null) {
-        return;
-    } else if (typeof data === 'number' || typeof data === 'boolean' || typeof data === 'string') {
-        // Do nothing
-    } else if (typeof data === 'object') {
-        data = JSON.stringify(data);
+        return window.atob(value);
     }
 
-    localStorage.setItem(this.encode(key), this.encode(data));
-  }
-
-  /*
-   * Clear items from localstorage except the keys provided
-   */
-  public clearData(keys?: Array<string>) {
-    const data = {};
-    keys = this.utils.nullToObject(keys, []);
-
-    for (let i = 0; i < keys.length; i++) {
-        const key = keys[i];
-        data[key] = this.getDataForKey(key);
+    /*
+     *  Remove key from Storage
+     */
+    public remove(key: string) {
+        localStorage.removeItem(this.encode(key));
     }
 
-    localStorage.clear();
+    /*
+     *  Getter method for LocalStorage
+     */
+    public getDataForKey(key: string) {
+        let data = this.decode(localStorage.getItem(this.encode(key)));
 
-    for (let i = 0; i < keys.length; i++) {
-        const key = keys[i];
-        this.setDataForKey(key, data[key]);
+        try {
+            data = JSON.parse(data);        // is Object
+        } catch (e) {
+            // Do Nothing. not an object
+        }
+
+        return data;
     }
-  }
+
+    /*
+     *  Setter method for LocalStorage
+     */
+    public setDataForKey(key: string, data: any) {
+        if (data == null) {
+            return;
+        } else if (typeof data === 'number' || typeof data === 'boolean' || typeof data === 'string') {
+            // Do nothing
+        } else if (typeof data === 'object') {
+            data = JSON.stringify(data);
+        }
+
+        localStorage.setItem(this.encode(key), this.encode(data));
+    }
+
+    /*
+     * Clear items from localstorage except the keys provided
+     */
+    public clearData(keys?: Array<string>) {
+        const data = {};
+        keys = this.utils.nullToObject(keys, []);
+
+        for (let i = 0; i < keys.length; i++) {
+            const key = keys[i];
+            data[key] = this.getDataForKey(key);
+        }
+
+        localStorage.clear();
+
+        for (let i = 0; i < keys.length; i++) {
+            const key = keys[i];
+            this.setDataForKey(key, data[key]);
+        }
+    }
 }

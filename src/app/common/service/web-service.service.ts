@@ -1,185 +1,208 @@
 interface WebServiceParams {
-  method: 'login' | 'register' | 'activate-account' | 'forgot-password' | 'reset-password' | 'logout';
-  body?: any;
-  urlParams?: any;
-  priority: 'high' | 'low';
-  loadingMessage?: string;
-  callback: Function;
+    method: 'login' | 'register' | 'activate-account' | 'forgot-password' | 'reset-password' | 'logout' | 'profile';
+    body?: any;
+    urlParams?: any;
+    priority: 'high' | 'low';
+    loadingMessage?: string;
+    callback: Function;
 }
 
 interface RequestParams {
-  type: 'POST' | 'GET' | 'PUT' | 'DELETE';
-  body?: any;
-  url?: string;
+    type: 'POST' | 'GET' | 'PUT' | 'DELETE';
+    body?: any;
+    url?: string;
 }
 
 interface RespoonseMessage {
-  code: Number;
-  message?: string;
-  data?: any;
+    code: Number;
+    message?: string;
+    data?: any;
 }
 
 interface CurrentlyExecuting {
-  payload: WebServiceParams;
-  request?: Subscription;
+    payload: WebServiceParams;
+    request?: Subscription;
 }
 
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable, Injector } from '@angular/core';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { Utils } from './utils.service';
+import { StorageService } from './storage.service';
 import { Constants } from '../constants';
 
 @Injectable()
 export class WebServiceService {
 
-  private baseUrl = 'http://localhost:3000/api/1.0';
-  private highPriorityQueue: WebServiceParams[] = [];
-  private lowPriorityQueue: WebServiceParams[] = [];
-  private callback: Function = null;
-  private currentlyExecuting: CurrentlyExecuting = null;
+    private baseUrl = 'http://localhost:3000/api/1.0';
+    private highPriorityQueue: WebServiceParams[] = [];
+    private lowPriorityQueue: WebServiceParams[] = [];
+    private callback: Function = null;
+    private currentlyExecuting: CurrentlyExecuting = null;
 
-  constructor(private http: HttpClient, private utils: Utils) { }
+    private utils: Utils;
+    private storage: StorageService;
 
-  public execute(payload: WebServiceParams) {
-    if (payload == null) {
-      return;
-    }
-
-    this.callback = payload.callback;
-
-    if (payload.priority === 'high') {
-      this.highPriorityQueue.push(payload);
-    } else {
-      this.lowPriorityQueue.push(payload);
-    }
-
-    this.processNext();
-  }
-
-  public clear() {
-    this.currentlyExecuting.request.unsubscribe();
-    this.highPriorityQueue = [];
-    this.lowPriorityQueue = [];
-    this.currentlyExecuting = null;
-  }
-
-  private processNext() {
-    if (this.currentlyExecuting === null) {
-      // No request is currently executing
-    } else if (this.currentlyExecuting.payload.priority === 'high') { // High priority request is currently executing. Let it execute
-      return;
-    // tslint:disable-next-line:max-line-length
-    } else if (this.currentlyExecuting.payload.priority === 'low' && this.highPriorityQueue.length > 0) { // Low priority request is currently executing, but there is a high priority request pending.
-      this.currentlyExecuting.request.unsubscribe();
-    } else if (this.currentlyExecuting.payload.priority === 'low') {
-        return;
-    }
-
-    let payload: WebServiceParams;
-    if (this.highPriorityQueue.length > 0) {   // Execute items in highPriorityQueue
-      payload = this.highPriorityQueue[0];
-    } else if (this.lowPriorityQueue.length > 0) {   // Execute items in lowPriorityQueue
-      payload = this.lowPriorityQueue[0];
-    } else {   // No Request Pending
-      return;
-    }
-
-    if (payload.loadingMessage != null) {
-      this.utils.showLoadingIndicator(true);
-    }
-
-    this.currentlyExecuting = {payload: payload};
-    this.buildRequest(payload);
-  }
-
-  private buildRequest(payload: WebServiceParams) {
-    let reqParams: RequestParams = null;
-
-    switch (payload.method) {
-      case 'login':
-      case 'register': {
-        reqParams = {
-          type: 'POST',
-          body: payload.body,
-          url: this.baseUrl + '/' + payload.method + '/' + this.processURLParameters(payload.urlParams)
-        };
-        break;
-      }
-      case 'activate-account':
-      case 'forgot-password': {
-        reqParams = {
-          type: 'GET',
-          url: this.baseUrl + '/' + payload.method + '/' + this.processURLParameters(payload.urlParams)
-        };
-        break;
-      }
-      case 'reset-password': {
-        reqParams = {
-          type: 'PUT',
-          body: payload.body,
-          url: this.baseUrl + '/' + payload.method + '/' + this.processURLParameters(payload.urlParams)
-        };
-        break;
-      }
-      default:
-        break;
-    }
-
-    this.triggerRequest(reqParams);
-  }
-
-  private processURLParameters(payload: JSON): String {
-    if (payload == null || JSON.stringify(payload).length === 2) {
-      return '';
-    }
-
-    let stringified: String = '';
-    for (const key in payload) {
-      if (payload.hasOwnProperty(key)) {
-        stringified += key + '/' + payload[key];
-      }
-    }
-
-    return stringified;
-  }
-
-  private triggerRequest(reqParams: RequestParams) {
-    const onComplete = (_response: RespoonseMessage) => {
-      if (this.currentlyExecuting.request) {
-        this.currentlyExecuting.request.unsubscribe();
-      }
-      this.callback(_response);
-
-      if (this.currentlyExecuting.payload.loadingMessage != null) {
-        this.utils.showLoadingIndicator(false);
-      }
-
-      // Remove item from appropriate queue
-      if (this.currentlyExecuting.payload.priority === 'high') {
-          this.highPriorityQueue.splice(0, 1);
-      } else {
-        this.lowPriorityQueue.splice(0, 1);
-      }
-
-      this.currentlyExecuting = null;
-      this.processNext();
-    };
-
-    this.currentlyExecuting.request = this.http.request(reqParams.type, reqParams.url, {
-      body: reqParams.body,
-      responseType: 'json',
-      observe: 'response'
-    }).subscribe(
-      (_response: any) => {
-        onComplete(_response.body);
-      },
-      _error => {
-        onComplete({
-          code: -1,
-          message: Constants.WEBSERVICE_INTERNET_NOT_CONNNECTED
+    constructor(
+        private injector: Injector,
+        private http: HttpClient,
+    ) {
+        const $this = this;
+        setTimeout(() => {
+            $this.utils = $this.injector.get(Utils);
+            $this.storage = $this.injector.get(StorageService);
         });
-      }
-    );
-  }
+    }
+
+    public execute(payload: WebServiceParams) {
+        if (payload == null) {
+            return;
+        }
+
+        this.callback = payload.callback;
+
+        if (payload.priority === 'high') {
+            this.highPriorityQueue.push(payload);
+        } else {
+            this.lowPriorityQueue.push(payload);
+        }
+
+        this.processNext();
+    }
+
+    public clear() {
+        if (this.currentlyExecuting) {
+            this.currentlyExecuting.request.unsubscribe();
+            this.currentlyExecuting = null;
+        }
+
+        this.highPriorityQueue = [];
+        this.lowPriorityQueue = [];
+    }
+
+    private processNext() {
+        if (this.currentlyExecuting === null) {
+            // No request is currently executing
+        } else if (this.currentlyExecuting.payload.priority === 'high') { // High priority request is currently executing. Let it execute
+            return;
+            // tslint:disable-next-line:max-line-length
+        } else if (this.currentlyExecuting.payload.priority === 'low' && this.highPriorityQueue.length > 0) { // Low priority request is currently executing, but there is a high priority request pending.
+            this.currentlyExecuting.request.unsubscribe();
+        } else if (this.currentlyExecuting.payload.priority === 'low') {
+            return;
+        }
+
+        let payload: WebServiceParams;
+        if (this.highPriorityQueue.length > 0) {   // Execute items in highPriorityQueue
+            payload = this.highPriorityQueue[0];
+        } else if (this.lowPriorityQueue.length > 0) {   // Execute items in lowPriorityQueue
+            payload = this.lowPriorityQueue[0];
+        } else {   // No Request Pending
+            return;
+        }
+
+        if (payload.loadingMessage != null) {
+            this.utils.showLoadingIndicator(true);
+        }
+
+        this.currentlyExecuting = { payload: payload };
+        this.buildRequest(payload);
+    }
+
+    private buildRequest(payload: WebServiceParams) {
+        let reqParams: RequestParams = null;
+
+        switch (payload.method) {
+            case 'login':
+            case 'register': {
+                reqParams = {
+                    type: 'POST',
+                    body: payload.body,
+                    url: this.baseUrl + '/' + payload.method + '/' + this.processURLParameters(payload.urlParams)
+                };
+                break;
+            }
+            case 'logout':
+            case 'activate-account':
+            case 'forgot-password': {
+                reqParams = {
+                    type: 'GET',
+                    url: this.baseUrl + '/' + payload.method + '/' + this.processURLParameters(payload.urlParams)
+                };
+                break;
+            }
+            case 'profile':
+            case 'reset-password': {
+                reqParams = {
+                    type: 'PUT',
+                    body: payload.body,
+                    url: this.baseUrl + '/' + payload.method + '/' + this.processURLParameters(payload.urlParams)
+                };
+                break;
+            }
+            default:
+                break;
+        }
+
+        if (reqParams) {
+            this.triggerRequest(reqParams);
+        }
+    }
+
+    private processURLParameters(payload: JSON): String {
+        if (payload == null || JSON.stringify(payload).length === 2) {
+            return '';
+        }
+
+        let stringified: String = '';
+        for (const key in payload) {
+            if (payload.hasOwnProperty(key)) {
+                stringified += key + '/' + payload[key];
+            }
+        }
+
+        return stringified;
+    }
+
+    private triggerRequest(reqParams: RequestParams) {
+        const onComplete = (_response: RespoonseMessage) => {
+            if (this.currentlyExecuting.request) {
+                this.currentlyExecuting.request.unsubscribe();
+            }
+            this.callback(_response);
+
+            if (this.currentlyExecuting.payload.loadingMessage != null) {
+                this.utils.showLoadingIndicator(false);
+            }
+
+            // Remove item from appropriate queue
+            if (this.currentlyExecuting.payload.priority === 'high') {
+                this.highPriorityQueue.splice(0, 1);
+            } else {
+                this.lowPriorityQueue.splice(0, 1);
+            }
+
+            this.currentlyExecuting = null;
+            this.processNext();
+        };
+
+        this.currentlyExecuting.request = this.http.request(reqParams.type, reqParams.url, {
+            body: reqParams.body,
+            responseType: 'json',
+            headers: {
+                'up-token': this.utils.nullToObject(this.storage.getDataForKey(Constants.TOKEN), '')
+            },
+            observe: 'response'
+        }).subscribe(
+            (_response: HttpResponse<any>) => {
+                onComplete(_response.body);
+            },
+            _error => {
+                onComplete({
+                    code: -1,
+                    message: Constants.WEBSERVICE_INTERNET_NOT_CONNNECTED
+                });
+            }
+        );
+    }
 }
