@@ -18,6 +18,7 @@ import { ActivateAccountComponent } from './activate-account/activate-account.co
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ProfileComponent } from './profile/profile.component';
+import { IncidentComponent } from './incident/incident.component';
 
 const appRoutes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -39,7 +40,8 @@ const appRoutes = [
     ActivateAccountComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
-    ProfileComponent
+    ProfileComponent,
+    IncidentComponent
   ],
   imports: [
     BrowserModule,

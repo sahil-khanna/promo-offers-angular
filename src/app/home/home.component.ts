@@ -11,9 +11,13 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent {
 
+    private userEmail: string = null;
+
     constructor(private utils: Utils, private storage: StorageService, private router: Router) {
         if (!this.storage.getDataForKey(Constants.TOKEN)) {
             this.router.navigate(['login']);
+        } else {
+            this.userEmail = this.storage.getDataForKey(Constants.USER_PROFILE).email;
         }
     }
 }

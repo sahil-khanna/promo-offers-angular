@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { WebServiceService } from '../common/service/web-service.service';
 import { AlertHelper } from '../common/service/alert-helper.service';
+import { Utils } from '../common/service/utils.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -20,12 +21,12 @@ export class ResetPasswordComponent {
     password: this.password,
     confirmPassword: this.confirmPassword
   });
-  // TODO: If Logged In, pick user's email. Send Token with new password to reset
-  // TODO: If reset password key is sent in query string, pick user's email from it. Send password key with new password to reset
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private webservice: WebServiceService,
-    private alertHelper: AlertHelper
+    private alertHelper: AlertHelper,
+    private utils: Utils
   ) {
     const $this = this;
     this.activatedRoute.queryParams.subscribe((params: any) => {

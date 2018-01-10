@@ -190,13 +190,17 @@ export class WebServiceService {
             body: reqParams.body,
             responseType: 'json',
             headers: {
-                'up-token': this.utils.nullToObject(this.storage.getDataForKey(Constants.TOKEN), '')
+                'x-token': this.utils.nullToObject(this.storage.getDataForKey(Constants.TOKEN), '')
             },
             observe: 'response'
         }).subscribe(
-            (_response: HttpResponse<any>) => {
+            (_response: any) => {
+                const newToken = _response.headers.get('x-token');
+                if (newToken) {
+                    this.storage.setDataForKey(Constants.TOKEN, newToken);
+                }
                 onComplete(_response.body);
-            },
+             },
             _error => {
                 onComplete({
                     code: -1,

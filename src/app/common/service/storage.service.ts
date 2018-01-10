@@ -40,7 +40,7 @@ export class StorageService {
     /*
      *  Getter method for LocalStorage
      */
-    public getDataForKey(key: string) {
+    public getDataForKey(key: string): any {
         let data = this.decode(localStorage.getItem(this.encode(key)));
 
         try {
