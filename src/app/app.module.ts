@@ -5,6 +5,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 import { MaterialModule } from './material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouteReuseStrategy } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -22,6 +23,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { IncidentComponent } from './incident/incident.component';
 import { TabBarComponent } from './tab-bar/tab-bar.component';
 import { MoreComponent } from './more/more.component';
+import { CustomReuseStrategy } from './custom-reuse-strategy';
 
 const appRoutes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -65,7 +67,8 @@ const appRoutes = [
     AlertHelper,
     StorageService,
     WebServiceService,
-    GlobalsService
+    GlobalsService,
+    {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}
   ],
   bootstrap: [AppComponent]
 })
