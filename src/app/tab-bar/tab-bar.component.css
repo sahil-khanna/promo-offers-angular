@@ -1,0 +1,29 @@
+.tab-bar {
+    height: 44px;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    margin-left: -8px;
+    border-top-color: #3f51b5;
+    border-top-style: solid;
+    border-top-width: thin;
+}
+
+.tab-bar-item {
+    display: inline-block;
+    text-align: center;
+    color: grey;
+}
+
+.tab-bar-item.selected {
+    color: #3f51b5;
+}
+
+.tab-bar-item span {
+    font-size: small;
+}
+
+.tab-bar-item mat-icon {
+    display: block;
+    margin: auto;
+}

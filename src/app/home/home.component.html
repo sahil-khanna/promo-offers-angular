@@ -1,21 +1,5 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon>
     <span>Home</span>
   </mat-toolbar-row>
 </mat-toolbar>
-
-<mat-menu #menu>
-  <button mat-menu-item [routerLink]="['/profile']">
-    <mat-icon>account_circle</mat-icon>
-    <span>Profile</span>
-  </button>
-  <button mat-menu-item [routerLink]="['/reset-password']" [queryParams]="{email: userEmail}">
-    <mat-icon>fingerprint</mat-icon>
-    <span>Reset Password</span>
-  </button>
-  <button mat-menu-item (click)="utils.logout()">
-    <mat-icon>exit_to_app</mat-icon>
-    <span>Logout</span>
-  </button>
-</mat-menu>

@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { AlertHelper } from './alert-helper.service';
 import { StorageService } from './storage.service';
 import { WebServiceService } from './web-service.service';
+import { GlobalsService } from './globals.service';
 import { Constants } from '../constants';
 import { Router } from '@angular/router';
 
@@ -13,9 +14,12 @@ export class Utils {
     private storage: StorageService;
     private webservice: WebServiceService;
 
-    public showLoading: boolean;
-
-    constructor(private injector: Injector, private router: Router, private location: Location) {
+    constructor(
+        private injector: Injector,
+        private router: Router,
+        private location: Location,
+        private globals: GlobalsService
+    ) {
         const $this = this;
         setTimeout(() => {
             $this.alertHelper = $this.injector.get(AlertHelper);
@@ -25,7 +29,7 @@ export class Utils {
     }
 
     public showLoadingIndicator(value: boolean, message?: string) {
-        this.showLoading = value;
+        this.globals.showLoading = value;
     }
 
     public nullToObject(sourceType, targetType) {
@@ -51,5 +55,6 @@ export class Utils {
         this.storage.clearData();
 
         this.router.navigate(['login']);
+        this.globals.token = null;
     }
 }

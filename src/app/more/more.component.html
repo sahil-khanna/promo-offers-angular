@@ -1,0 +1,15 @@
+<mat-list class="list-item">
+  <mat-list-item [routerLink]="['/profile']">
+  <!-- <mat-list-item (click)="selectedOption = 'profile'"> -->
+    <mat-icon mat-list-icon>account_circle</mat-icon>
+    <h4 mat-line>Profile</h4>
+  </mat-list-item>
+  <mat-list-item [routerLink]="['/reset-password']" [queryParams]="{email: userEmail}">
+    <mat-icon mat-list-icon>fingerprint</mat-icon>
+    <h4 mat-line>Reset Password</h4>
+  </mat-list-item>
+  <mat-list-item (click)="utils.logout()">
+    <mat-icon mat-list-icon>exit_to_app</mat-icon>
+    <h4 mat-line>Logout</h4>
+  </mat-list-item>
+</mat-list>

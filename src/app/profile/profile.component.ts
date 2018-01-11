@@ -15,13 +15,13 @@ import { Constants } from '../common/constants';
 export class ProfileComponent implements OnInit {
 
     public mobile: FormControl = new FormControl();
-    public email: FormControl = new FormControl();
     public firstName: FormControl = new FormControl();
     public lastName: FormControl = new FormControl();
     public gender: FormControl = new FormControl();
 
+    public email: string;
+
     public form = new FormGroup({
-        email: this.email,
         mobile: this.mobile,
         firstName: this.firstName,
         lastName: this.lastName,
@@ -36,12 +36,16 @@ export class ProfileComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.fillData();
+    }
+
+    private fillData() {
         const profile: any = this.storage.getDataForKey(Constants.USER_PROFILE);
         this.mobile.setValue(profile.mobile);
-        this.email.setValue(profile.email);
         this.firstName.setValue(profile.firstName);
         this.lastName.setValue(profile.lastName);
         this.gender.setValue((profile.gender === true) ? '1' : '2');
+        this.email = profile.email;
     }
 
     public update() {
@@ -54,7 +58,6 @@ export class ProfileComponent implements OnInit {
         }
 
         if (this.form.invalid) {
-            this.email.markAsTouched();
             this.mobile.markAsTouched();
             this.firstName.markAsTouched();
             this.lastName.markAsTouched();
@@ -66,7 +69,7 @@ export class ProfileComponent implements OnInit {
         this.webservice.execute({
             method: 'profile',
             body: {
-                email: this.email.value,
+                email: this.email,
                 mobile: this.mobile.value,
                 firstName: this.firstName.value,
                 lastName: this.lastName.value,
@@ -79,6 +82,18 @@ export class ProfileComponent implements OnInit {
                     text: _response.message,
                     type: (_response.code === 0) ? 'success' : 'error'
                 });
+
+                if (_response.code === 0) {
+                    $this.storage.setDataForKey(Constants.USER_PROFILE, {
+                        email: this.email.value,
+                        mobile: this.mobile.value,
+                        firstName: this.firstName.value,
+                        lastName: this.lastName.value,
+                        gender: this.gender.value === '1'
+                    });
+                } else {
+                    $this.fillData();   // Fill UI with old values
+                }
             }
         });
     }

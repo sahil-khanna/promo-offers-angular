@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { WebServiceService } from './common/service/web-service.service';
+import { GlobalsService } from './common/service/globals.service';
 import { Utils } from './common/service/utils.service';
 import { AlertHelper } from './common/service/alert-helper.service';
 import { StorageService } from './common/service/storage.service';
@@ -19,6 +20,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ProfileComponent } from './profile/profile.component';
 import { IncidentComponent } from './incident/incident.component';
+import { TabBarComponent } from './tab-bar/tab-bar.component';
+import { MoreComponent } from './more/more.component';
 
 const appRoutes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -28,7 +31,8 @@ const appRoutes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'profile', component: ProfileComponent }
+  { path: 'profile', component: ProfileComponent },
+  { path: 'more', component: MoreComponent }
 ];
 
 @NgModule({
@@ -41,7 +45,9 @@ const appRoutes = [
     ForgotPasswordComponent,
     ResetPasswordComponent,
     ProfileComponent,
-    IncidentComponent
+    IncidentComponent,
+    TabBarComponent,
+    MoreComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +64,8 @@ const appRoutes = [
     Utils,
     AlertHelper,
     StorageService,
-    WebServiceService
+    WebServiceService,
+    GlobalsService
   ],
   bootstrap: [AppComponent]
 })

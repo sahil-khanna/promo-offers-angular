@@ -25,13 +25,8 @@
     </div>
 
     <mat-form-field>
-      <input type="email" matInput formControlName="email" disabled>
+      <input type="email" matInput disabled value="{{email}}">
     </mat-form-field>
-    <div class="form-error-message" *ngIf="email.errors && (email.dirty || email.touched)">
-      <p *ngIf="email.errors.required">E-mail is required</p>
-      <p *ngIf="email.errors.minlength">E-mail must be atleast {{email.errors.minlength.requiredLength}} characters long</p>
-      <p *ngIf="email.errors.pattern && !email.errors.minlength">Enter valid e-mail</p>
-    </div>
 
     <!-- TODO: Add pattern for mobile: pattern="/^[a-zA-Z]+$/g" -->
     <mat-form-field>

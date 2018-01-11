@@ -1,4 +1,5 @@
-<router-outlet></router-outlet>
-<div class="spinner" *ngIf="utils.showLoading">
+<div class="spinner" *ngIf="globals.showLoading">>
     <mat-spinner></mat-spinner>
 </div>
+<router-outlet></router-outlet>
+<app-tab-bar *ngIf="globals.token"></app-tab-bar>
