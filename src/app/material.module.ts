@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { MatInputModule, MatButtonModule, MatToolbarModule, MatFormFieldModule, MatProgressSpinnerModule,
-    MatRadioModule, MatMenuModule, MatIconModule, MatListModule } from '@angular/material';
+    MatRadioModule, MatMenuModule, MatIconModule, MatListModule, MatCardModule } from '@angular/material';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
     imports: [
@@ -14,7 +15,9 @@ import { MatTabsModule } from '@angular/material/tabs';
         MatMenuModule,
         MatIconModule,
         MatTabsModule,
-        MatListModule
+        MatListModule,
+        MatSelectModule,
+        MatCardModule
     ],
     exports: [
         MatInputModule,
@@ -26,7 +29,9 @@ import { MatTabsModule } from '@angular/material/tabs';
         MatMenuModule,
         MatIconModule,
         MatTabsModule,
-        MatListModule
+        MatListModule,
+        MatSelectModule,
+        MatCardModule
     ]
 })
 

@@ -42,7 +42,6 @@ export class ResetPasswordComponent {
       return;
     }
 
-    // TODO: Send token if already logged in
     const $this = this;
     this.webservice.execute({
       method: 'reset-password',

@@ -18,15 +18,15 @@ export class TabBarComponent implements OnInit {
     ngOnInit() {
         this.tabItems = [
             {
-                name: 'Home',
+                name: 'My Contributions',
                 icon: 'home',
                 class: 'selected',
-                target: 'home'
+                target: 'my-contributions'
             },
             {
-                name: 'Near Me',
+                name: 'Contribute',
                 icon: 'location_searching',
-                target: 'profile'
+                target: 'contribute'
             },
             {
                 name: 'More',

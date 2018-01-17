@@ -20,21 +20,23 @@ import { ActivateAccountComponent } from './activate-account/activate-account.co
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ProfileComponent } from './profile/profile.component';
-import { IncidentComponent } from './incident/incident.component';
 import { TabBarComponent } from './tab-bar/tab-bar.component';
 import { MoreComponent } from './more/more.component';
 import { CustomReuseStrategy } from './custom-reuse-strategy';
+import { MyContributionsComponent } from './my-contributions/my-contributions.component';
+import { ContributeComponent } from './contribute/contribute.component';
 
 const appRoutes = [
-  { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: '', redirectTo: 'my-contributions', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'activate-account/:key', component: ActivateAccountComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'home', component: HomeComponent },
+  { path: 'my-contributions', component: MyContributionsComponent, reuseComponent: true },
+  { path: 'contribute', component: ContributeComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'more', component: MoreComponent }
+  { path: 'more', component: MoreComponent, reuseComponent: true }
 ];
 
 @NgModule({
@@ -47,9 +49,10 @@ const appRoutes = [
     ForgotPasswordComponent,
     ResetPasswordComponent,
     ProfileComponent,
-    IncidentComponent,
     TabBarComponent,
-    MoreComponent
+    MoreComponent,
+    MyContributionsComponent,
+    ContributeComponent
   ],
   imports: [
     BrowserModule,

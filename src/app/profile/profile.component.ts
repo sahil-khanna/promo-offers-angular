@@ -85,11 +85,11 @@ export class ProfileComponent implements OnInit {
 
                 if (_response.code === 0) {
                     $this.storage.setDataForKey(Constants.USER_PROFILE, {
-                        email: this.email.value,
-                        mobile: this.mobile.value,
-                        firstName: this.firstName.value,
-                        lastName: this.lastName.value,
-                        gender: this.gender.value === '1'
+                        email: $this.email,
+                        mobile: $this.mobile.value,
+                        firstName: $this.firstName.value,
+                        lastName: $this.lastName.value,
+                        gender: $this.gender.value === '1'
                     });
                 } else {
                     $this.fillData();   // Fill UI with old values

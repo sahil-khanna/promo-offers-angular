@@ -7,7 +7,7 @@
   <form [formGroup]="form" (ngSubmit)="register()" class="form">
     <mat-form-field>
       <!-- TODO: Add pattern for first and last name: pattern="/^[a-zA-Z]+$/g" -->
-      <input type="text" matInput placeholder="first name" formControlName="firstName" minlength="3" maxlength="20" required> 
+      <input type="text" matInput placeholder="First Name" formControlName="firstName" minlength="3" maxlength="20" required> 
     </mat-form-field>
     <div class="form-error-message" *ngIf="firstName.errors && (firstName.dirty || firstName.touched)">
       <p *ngIf="firstName.errors.required">First Name is required</p>
@@ -16,7 +16,7 @@
     </div>
 
     <mat-form-field>
-      <input type="text" matInput placeholder="last name" formControlName="lastName" minlength="3" maxlength="20" required>
+      <input type="text" matInput placeholder="Last Name" formControlName="lastName" minlength="3" maxlength="20" required>
     </mat-form-field>
     <div class="form-error-message" *ngIf="lastName.errors && (lastName.dirty || lastName.touched)">
       <p *ngIf="lastName.errors.required">Last Name is required</p>
@@ -25,16 +25,16 @@
     </div>
 
     <mat-form-field>
-      <input type="email" matInput placeholder="e-mail" formControlName="email" minlength="8" maxlength="50" required pattern="^\w+[\w-\.]*\@\w+((-\w+)|(\w*))\.[a-z]{2,3}$">
+      <input type="email" matInput placeholder="E-Mail" formControlName="email" minlength="8" maxlength="50" required pattern="^\w+[\w-\.]*\@\w+((-\w+)|(\w*))\.[a-z]{2,3}$">
     </mat-form-field>
     <div class="form-error-message" *ngIf="email.errors && (email.dirty || email.touched)">
-      <p *ngIf="email.errors.required">E-mail is required</p>
-      <p *ngIf="email.errors.minlength">E-mail must be atleast {{email.errors.minlength.requiredLength}} characters long</p>
-      <p *ngIf="email.errors.pattern && !email.errors.minlength">Enter valid e-mail</p>
+      <p *ngIf="email.errors.required">E-Mail is required</p>
+      <p *ngIf="email.errors.minlength">E-Mail must be atleast {{email.errors.minlength.requiredLength}} characters long</p>
+      <p *ngIf="email.errors.pattern && !email.errors.minlength">Enter valid E-Mail</p>
     </div>
 
     <mat-form-field>
-      <input type="password" matInput placeholder="password" formControlName="password" minlength="5" maxlength="20" required>
+      <input type="password" matInput placeholder="Password" formControlName="password" minlength="5" maxlength="20" required>
     </mat-form-field>
     <div class="form-error-message" *ngIf="password.errors && (password.dirty || password.touched)">
       <p *ngIf="password.errors.required">Password is required</p>
@@ -42,19 +42,19 @@
     </div>
 
     <mat-form-field>
-      <input type="password" matInput placeholder="confirm password" formControlName="confirmPassword" minlength="5" maxlength="20" required>
+      <input type="password" matInput placeholder="Confirm Password" formControlName="confirmPassword" minlength="5" maxlength="20" required>
     </mat-form-field>
     <div class="form-error-message" *ngIf="confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched)">
       <p *ngIf="confirmPassword.errors && confirmPassword.errors.required">Confirm Password is required</p>
-      <p *ngIf="confirmPassword.errors.minlength">Confirm password must be atleast {{confirmPassword.errors.minlength.requiredLength}} characters long</p>
+      <p *ngIf="confirmPassword.errors.minlength">Confirm Password must be atleast {{confirmPassword.errors.minlength.requiredLength}} characters long</p>
     </div>
     <div class="form-error-message" *ngIf="!confirmPassword.errors && confirmPassword.value !== password.value">
-        <p>Password and confirm password should be same</p>
+        <p>Password and Confirm Password should be same</p>
     </div>
 
     <!-- TODO: Add pattern for mobile: pattern="/^[a-zA-Z]+$/g" -->
     <mat-form-field>
-      <input type="tel" matInput placeholder="mobile" formControlName="mobile" minlength="10" maxlength="10" required>
+      <input type="tel" matInput placeholder="Mobile" formControlName="mobile" minlength="10" maxlength="10" required>
     </mat-form-field>
     <div class="form-error-message" *ngIf="mobile.errors && (mobile.dirty || mobile.touched)">
       <p *ngIf="mobile.errors && mobile.errors.required">Mobile is required</p>

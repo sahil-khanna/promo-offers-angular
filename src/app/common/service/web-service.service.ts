@@ -1,5 +1,6 @@
 interface WebServiceParams {
-    method: 'login' | 'register' | 'activate-account' | 'forgot-password' | 'reset-password' | 'logout' | 'profile';
+    method: 'login' | 'register' | 'activate-account' | 'forgot-password' |
+    'reset-password' | 'logout' | 'profile' | 'contribute' | 'contributions';
     body?: any;
     urlParams?: any;
     priority: 'high' | 'low';
@@ -81,6 +82,14 @@ export class WebServiceService {
     }
 
     private processNext() {
+        if (!this.utils) {  // In a few cases, utils wasn't initialized. So processing after a delay
+            const $this = this;
+            setTimeout(() => {
+                $this.processNext();
+            });
+            return;
+        }
+
         if (this.currentlyExecuting === null) {
             // No request is currently executing
         } else if (this.currentlyExecuting.payload.priority === 'high') { // High priority request is currently executing. Let it execute
@@ -114,7 +123,8 @@ export class WebServiceService {
 
         switch (payload.method) {
             case 'login':
-            case 'register': {
+            case 'register':
+            case 'contribute': {
                 reqParams = {
                     type: 'POST',
                     body: payload.body,
@@ -124,7 +134,8 @@ export class WebServiceService {
             }
             case 'logout':
             case 'activate-account':
-            case 'forgot-password': {
+            case 'forgot-password':
+            case 'contributions': {
                 reqParams = {
                     type: 'GET',
                     url: this.baseUrl + '/' + payload.method + '/' + this.processURLParameters(payload.urlParams)

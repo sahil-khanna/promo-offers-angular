@@ -7,30 +7,30 @@
 <div class="col-md-6 col-md-offset-3">
   <form [formGroup]="form" (ngSubmit)="update()" class="form">
     <mat-form-field>
-      <input type="text" matInput placeholder="first name" formControlName="firstName" minlength="3" maxlength="20" required> 
+      <input type="text" matInput placeholder="First Name" formControlName="firstName" minlength="3" maxlength="20" required> 
     </mat-form-field>
     <div class="form-error-message" *ngIf="firstName.errors && (firstName.dirty || firstName.touched)">
       <p *ngIf="firstName.errors.required">First Name is required</p>
       <p *ngIf="firstName.errors.minlength">First Name must be atleast {{firstName.errors.minlength.requiredLength}} characters long</p>
-      <p *ngIf="firstName.errors.pattern && !firstName.errors.minlength">Enter valid first name</p>
+      <p *ngIf="firstName.errors.pattern && !firstName.errors.minlength">Enter valid First Name</p>
     </div>
 
     <mat-form-field>
-      <input type="text" matInput placeholder="last name" formControlName="lastName" minlength="3" maxlength="20" required>
+      <input type="text" matInput placeholder="Last Name" formControlName="lastName" minlength="3" maxlength="20" required>
     </mat-form-field>
     <div class="form-error-message" *ngIf="lastName.errors && (lastName.dirty || lastName.touched)">
       <p *ngIf="lastName.errors.required">Last Name is required</p>
       <p *ngIf="lastName.errors.minlength">Last Name must be atleast {{lastName.errors.minlength.requiredLength}} characters long</p>
-      <p *ngIf="lastName.errors.pattern && !lastName.errors.minlength">Enter valid last name</p>
+      <p *ngIf="lastName.errors.pattern && !lastName.errors.minlength">Enter valid Last Name</p>
     </div>
 
     <mat-form-field>
-      <input type="email" matInput disabled value="{{email}}">
+      <input type="email" placeholder="E-Mail" matInput disabled value="{{email}}">
     </mat-form-field>
 
     <!-- TODO: Add pattern for mobile: pattern="/^[a-zA-Z]+$/g" -->
     <mat-form-field>
-      <input type="tel" matInput placeholder="mobile" formControlName="mobile" minlength="10" maxlength="10" required>
+      <input type="tel" matInput placeholder="Mobile" formControlName="mobile" minlength="10" maxlength="10" required>
     </mat-form-field>
     <div class="form-error-message" *ngIf="mobile.errors && (mobile.dirty || mobile.touched)">
       <p *ngIf="mobile.errors && mobile.errors.required">Mobile is required</p>

@@ -73,20 +73,15 @@ export class AlertHelper {
                 }, 200);
             }
         })
-            .then(
-            () => {
-                if (payload.onConfirm) {
-                    payload.onConfirm();
-                }
-            },
-            (dismiss) => {
-                if (dismiss === 'cancel' && typeof payload.onCancel) {
-                    payload.onCancel();
-                }
-                if (dismiss === 'close' && typeof payload.onClose) {
-                    payload.onClose();
-                }
+        .then(
+        (result) => {
+            if (result.dismiss === 'cancel' && payload.onCancel) {
+                payload.onCancel();
+            } else if (result.dismiss === 'close' && payload.onClose) {
+                payload.onClose();
+            } else if (result.value === true && payload.onConfirm) {
+                payload.onConfirm();
             }
-            );
+        });
     }
 }

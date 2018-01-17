@@ -1,0 +1,78 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>New Request</span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <div class="col-md-6 col-md-offset-3">
+    <form [formGroup]="formGroup" (ngSubmit)="submit()" class="form">
+      <mat-form-field>
+        <mat-select placeholder="Type" required formControlName="type">
+          <mat-option value="1">Veg</mat-option>
+          <mat-option value="2">Non-Veg</mat-option>
+          <mat-option value="3">Both</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="form-error-message" *ngIf="type.errors && (type.dirty || type.touched)">
+        <p *ngIf="type.errors && type.errors.required">Type is required</p>
+      </div>
+  
+      <mat-form-field>
+        <mat-select placeholder="Cooked on" required formControlName="cookedOn">
+          <mat-option value="1">Today</mat-option>
+          <mat-option value="2">Yesterday</mat-option>
+          <mat-option value="3">2 days back</mat-option>
+          <mat-option value="3">3 days back or more</mat-option>
+        </mat-select>      
+      </mat-form-field>
+      <div class="form-error-message" *ngIf="cookedOn.errors && (cookedOn.dirty || cookedOn.touched)">
+        <p *ngIf="cookedOn.errors && cookedOn.errors.required">Cooked On is required</p>
+      </div>
+  
+      <mat-form-field>
+        <mat-select placeholder="Can serve" required formControlName="canServe">
+          <mat-option value="1">1-5 people</mat-option>
+          <mat-option value="2">6-20 people</mat-option>
+          <mat-option value="3">21-50 people</mat-option>
+          <mat-option value="4">51-75 people</mat-option>
+          <mat-option value="5">75-100 people</mat-option>
+          <mat-option value="6">More than 100</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="form-error-message" *ngIf="canServe.errors && (canServe.dirty || canServe.touched)">
+        <p *ngIf="canServe.errors && canServe.errors.required">Can Serve is required</p>
+      </div>
+  
+      <mat-form-field>
+        <mat-select placeholder="Is Packed" required formControlName="isPacked">
+          <mat-option value="1">Yes</mat-option>
+          <mat-option value="2">No</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="form-error-message" *ngIf="isPacked.errors && (isPacked.dirty || isPacked.touched)">
+        <p *ngIf="isPacked.errors && isPacked.errors.required">Is Packed is required</p>
+      </div>
+  
+      <!-- TODO: Add pattern for mobile: pattern="/^[a-zA-Z]+$/g" -->
+      <mat-form-field>
+        <input type="tel" matInput placeholder="Mobile" formControlName="mobile" minlength="10" maxlength="10" required>
+      </mat-form-field>
+      <div class="form-error-message" *ngIf="mobile.errors && (mobile.dirty || mobile.touched)">
+        <p *ngIf="mobile.errors && mobile.errors.required">Mobile is required</p>
+        <p *ngIf="mobile.errors.minlength">Mobile must be atleast {{mobile.errors.minlength.requiredLength}} digits long</p>
+      </div>
+  
+      <mat-form-field>
+        <textarea matInput placeholder="Address" formControlName="address" minlength="3" maxlength="250" required></textarea>
+      </mat-form-field>
+      <div class="form-error-message" *ngIf="address.errors && (address.dirty || address.touched)">
+        <p *ngIf="address.errors && address.errors.required">Address is required</p>
+        <p *ngIf="address.errors.minlength">Address must be atleast {{address.errors.minlength.requiredLength}} characters long</p>
+      </div>
+  
+      <br><br>
+      
+      <p style="text-align: center">
+        <button mat-raised-button color="primary" type="submit">Submit</button>
+      </p>
+    </form>
+  </div>
