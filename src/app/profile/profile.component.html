@@ -6,6 +6,11 @@
 </mat-toolbar>
 <div class="col-md-6 col-md-offset-3">
   <form [formGroup]="form" (ngSubmit)="update()" class="form">
+    <img src="{{imageURL}}" class="profile-image" (click)="imageInput.click()">
+    <!-- <mat-form-field>
+      <button type="button" md-button (click)="imgFileInput.click()">Add a photo</button>
+    </mat-form-field> -->
+    <input hidden type="file" #imageInput (change)="imageSelected($event)" accept="image/*"/>
     <mat-form-field>
       <input type="text" matInput placeholder="First Name" formControlName="firstName" minlength="3" maxlength="20" required> 
     </mat-form-field>

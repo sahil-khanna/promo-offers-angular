@@ -65,6 +65,9 @@ export class RegisterComponent {
             loadingMessage: '',
             priority: 'high',
             callback: function (_response: any) {
+                if (_response.code === 0) {
+                    $this.router.navigate(['login']);
+                }
                 $this.alertHelper.push({
                     text: _response.message,
                     type: (_response.code === 0) ? 'success' : 'error'

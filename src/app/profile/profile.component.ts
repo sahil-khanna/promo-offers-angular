@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
     public gender: FormControl = new FormControl();
 
     public email: string;
+    public imageURL: string;
 
     public form = new FormGroup({
         mobile: this.mobile,
@@ -46,10 +47,14 @@ export class ProfileComponent implements OnInit {
         this.lastName.setValue(profile.lastName);
         this.gender.setValue((profile.gender === true) ? '1' : '2');
         this.email = profile.email;
+        this.imageURL = profile.imageURL ? profile.imageURL : 'assets/avatar-placeholder.png';
     }
 
+    /*
+     *  Update profile inly is the form is not Pristine
+     */
     public update() {
-        if (!this.form.dirty) {
+        if (!this.form.dirty && this.imageURL.search('data:image') === -1) {
             this.alertHelper.push({
                 text: 'Profile updated successfully',
                 type: 'success'
@@ -66,6 +71,7 @@ export class ProfileComponent implements OnInit {
         }
 
         const $this = this;
+
         this.webservice.execute({
             method: 'profile',
             body: {
@@ -73,7 +79,8 @@ export class ProfileComponent implements OnInit {
                 mobile: this.mobile.value,
                 firstName: this.firstName.value,
                 lastName: this.lastName.value,
-                gender: this.gender.value === '1'
+                gender: this.gender.value === '1',
+                image: (this.imageURL.search('data:image') === -1) ? null : this.imageURL
             },
             loadingMessage: '',
             priority: 'high',
@@ -84,13 +91,12 @@ export class ProfileComponent implements OnInit {
                 });
 
                 if (_response.code === 0) {
-                    $this.storage.setDataForKey(Constants.USER_PROFILE, {
-                        email: $this.email,
-                        mobile: $this.mobile.value,
-                        firstName: $this.firstName.value,
-                        lastName: $this.lastName.value,
-                        gender: $this.gender.value === '1'
-                    });
+                    $this.storage.setDataForKey(Constants.USER_PROFILE, _response.data);
+                    if (_response.data.imageURL) {
+                        $this.imageURL = _response.data.imageURL;
+                    }
+
+                    $this.form.markAsPristine();
                 } else {
                     $this.fillData();   // Fill UI with old values
                 }
@@ -98,4 +104,14 @@ export class ProfileComponent implements OnInit {
         });
     }
 
+    public imageSelected(event) {
+        const $this = this;
+
+        const fileReader = new FileReader();
+        fileReader.onload = function(e: any) {
+            $this.imageURL = e.target.result;
+        };
+
+        fileReader.readAsDataURL(event.target.files[0]);
+    }
 }

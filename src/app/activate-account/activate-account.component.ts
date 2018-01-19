@@ -17,9 +17,10 @@ export class ActivateAccountComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private alertHelper: AlertHelper,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
+    alert();
     this.activatedRoute.params.subscribe((params: Params) => {
       this.activateAccount(decodeURIComponent(params['key']));
     });
@@ -37,7 +38,7 @@ export class ActivateAccountComponent implements OnInit {
           text: _response.message,
           type: (_response.code === 0) ? 'success' : 'error',
           onConfirm: function() {
-            $this.router.navigate(['login']);
+            // $this.router.navigate(['login']);
           }
         });
       }

@@ -48,7 +48,13 @@ export class LoginComponent {
             callback: function (_response) {
                 if (_response.code === 0) {
                     $this.globals.token = _response.data.token;
+
+                    // if (!_response.data.profile.imageURL) {
+                    //     _response.data.profile.imageURL = 'assets/avatar-placeholder.png';
+                    // }
+
                     $this.storage.setDataForKey(Constants.USER_PROFILE, _response.data.profile);
+                    console.log(_response.data.profile);
                     $this.storage.setDataForKey(Constants.TOKEN, _response.data.token);
                     $this.router.navigate(['']);
                 } else {

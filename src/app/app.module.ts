@@ -31,6 +31,7 @@ const appRoutes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'activate-account/:key', component: ActivateAccountComponent },
+  // { path: 'activate-account', component: ActivateAccountComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'my-contributions', component: MyContributionsComponent, reuseComponent: true },
