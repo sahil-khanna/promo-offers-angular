@@ -20,3 +20,11 @@
     width: 95%;
     margin-left: 1vh;
 }
+
+.profile-image {
+    width: 120px;
+    height: 120px;
+    margin: auto;
+    display: block;
+    border-radius: 50%;
+}

@@ -25,6 +25,8 @@ import { MoreComponent } from './more/more.component';
 import { CustomReuseStrategy } from './custom-reuse-strategy';
 import { MyContributionsComponent } from './my-contributions/my-contributions.component';
 import { ContributeComponent } from './contribute/contribute.component';
+import { OfferComponent } from './offer/offer.component';
+import { VendorComponent } from './vendor/vendor.component';
 
 const appRoutes = [
   { path: '', redirectTo: 'my-contributions', pathMatch: 'full' },
@@ -36,7 +38,9 @@ const appRoutes = [
   { path: 'my-contributions', component: MyContributionsComponent, reuseComponent: true },
   { path: 'contribute', component: ContributeComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'more', component: MoreComponent, reuseComponent: true }
+  { path: 'more', component: MoreComponent, reuseComponent: true },
+  { path: 'offer', component: OfferComponent},
+  { path: 'vendor', component: VendorComponent}
 ];
 
 @NgModule({
@@ -52,7 +56,9 @@ const appRoutes = [
     TabBarComponent,
     MoreComponent,
     MyContributionsComponent,
-    ContributeComponent
+    ContributeComponent,
+    OfferComponent,
+    VendorComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,7 @@
 interface WebServiceParams {
     method: 'login' | 'register' | 'activate-account' | 'forgot-password' |
-    'reset-password' | 'logout' | 'profile' | 'contribute' | 'contributions';
+    'reset-password' | 'logout' | 'profile' | 'contribute' | 'contributions'|
+    'vendors' | 'create-vendor' | 'update-vendor';
     body?: any;
     urlParams?: any;
     priority: 'high' | 'low';
@@ -124,7 +125,8 @@ export class WebServiceService {
         switch (payload.method) {
             case 'login':
             case 'register':
-            case 'contribute': {
+            case 'contribute':
+            case 'create-vendor': {
                 reqParams = {
                     type: 'POST',
                     body: payload.body,
@@ -143,7 +145,8 @@ export class WebServiceService {
                 break;
             }
             case 'profile':
-            case 'reset-password': {
+            case 'reset-password':
+            case 'update-vendor': {
                 reqParams = {
                     type: 'PUT',
                     body: payload.body,

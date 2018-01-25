@@ -47,11 +47,11 @@ export class ProfileComponent implements OnInit {
         this.lastName.setValue(profile.lastName);
         this.gender.setValue((profile.gender === true) ? '1' : '2');
         this.email = profile.email;
-        this.imageURL = profile.imageURL ? profile.imageURL : 'assets/avatar-placeholder.png';
+        this.imageURL = profile.imageURL ? profile.imageURL : Constants.IMAGE_PLACEHOLDER;
     }
 
     /*
-     *  Update profile inly is the form is not Pristine
+     *  Update profile only is the form is not Pristine
      */
     public update() {
         if (!this.form.dirty && this.imageURL.search('data:image') === -1) {
