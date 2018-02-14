@@ -14,6 +14,15 @@
     </div>
 
     <mat-form-field>
+      <input type="email" matInput placeholder="E-Mail" formControlName="email" minlength="8" maxlength="50" required pattern="^\w+[\w-\.]*\@\w+((-\w+)|(\w*))\.[a-z]{2,3}$">
+    </mat-form-field>
+    <div class="form-error-message" *ngIf="email.errors && (email.dirty || email.touched)">
+      <p *ngIf="email.errors.required">E-Mail is required</p>
+      <p *ngIf="email.errors.minlength">E-Mail must be atleast {{email.errors.minlength.requiredLength}} characters long</p>
+      <p *ngIf="email.errors.pattern && !email.errors.minlength">Enter valid E-Mail</p>
+    </div>
+
+    <mat-form-field>
       <textarea matInput placeholder="Description" formControlName="description" minlength="20" maxlength="500" required></textarea>
     </mat-form-field>
     <div class="form-error-message" *ngIf="description.errors && (description.dirty || description.touched)">

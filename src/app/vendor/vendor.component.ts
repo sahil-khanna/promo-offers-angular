@@ -14,13 +14,17 @@ export class VendorComponent {
 
     private name: FormControl = new FormControl();
     private description: FormControl = new FormControl();
+    private website: FormControl = new FormControl();
+    private email: FormControl = new FormControl();
     private imageURL: string = Constants.IMAGE_PLACEHOLDER;
     private existingVendor: any = null;
 
 
     private form = new FormGroup({
         name: this.name,
-        description: this.description
+        description: this.description,
+        email: this.email,
+        website: this.website
     });
 
     constructor(
@@ -51,6 +55,8 @@ export class VendorComponent {
         if (this.form.invalid) {
             this.name.markAsTouched();
             this.description.markAsTouched();
+            this.website.markAsTouched();
+            this.email.markAsTouched();
             return;
         }
 
@@ -67,6 +73,8 @@ export class VendorComponent {
         const body: any = {
             name: this.name.value,
             description: this.description.value,
+            website: this.website.value,
+            email: this.email.value,
             image: (this.imageURL.search('data:image') === -1) ? null : this.imageURL
         };
         let method = null;
