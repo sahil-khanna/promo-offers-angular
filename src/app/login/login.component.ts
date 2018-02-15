@@ -50,6 +50,7 @@ export class LoginComponent {
                     $this.globals.token = _response.data.token;
                     $this.storage.setDataForKey(Constants.USER_PROFILE, _response.data.profile);
                     $this.storage.setDataForKey(Constants.TOKEN, _response.data.token);
+                    $this.storage.setDataForKey(Constants.ROLE_ID, _response.data.roleId);
                     $this.router.navigate(['']);
                 } else {
                     $this.alertHelper.push({

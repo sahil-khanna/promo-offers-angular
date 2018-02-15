@@ -3,6 +3,7 @@ import { WebServiceService } from '../common/service/web-service.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertHelper } from '../common/service/alert-helper.service';
+import { Constants } from '../common/constants';
 
 @Component({
     selector: 'app-register',
@@ -60,7 +61,8 @@ export class RegisterComponent {
                 mobile: this.mobile.value,
                 firstName: this.firstName.value,
                 lastName: this.lastName.value,
-                gender: this.gender.value === '1'
+                gender: this.gender.value === '1',
+                roleId: Constants.ROLE_USER
             },
             loadingMessage: '',
             priority: 'high',

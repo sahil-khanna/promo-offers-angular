@@ -21,7 +21,6 @@ export class MyContributionsComponent implements OnInit {
         private globals: GlobalsService
     ) {
         if (!this.storage.getDataForKey(Constants.TOKEN)) {
-            alert('AppComponent');
             this.router.navigate(['login']);
         } else {
             this.globals.token = this.storage.getDataForKey(Constants.TOKEN);

@@ -1,0 +1,64 @@
+Admin Panel
+
+1) Admin user's will register and activate from User app. roleId will be assigned in DB
+2) Roles of Admin
+    2.1) Create/Edit/Delete Vendor
+    2.2) Set expiry date of subscription
+    2.3) Enable/Disable vendor momentarily
+3) Roles of Vendor
+    2.1) Create/Delete Offers
+    2.2) Edit self details (website, description, name, logo)
+    2.3) Change/reset password
+
+
+User
+
+1) User will self register
+2) User can view offers (by recent, selected vendors)
+3) User can avail offers
+4) Change/reset password
+
+
+
+
+Admin view (Role 1)
+    Tabs
+        Vendors
+            List (Icon and Name, expiry Date)
+            Paging (Pull to refresh)
+            Details
+                Profile (Editable)
+                Set Expiry
+                Enable/Disable
+        More
+            Reset password
+            logout
+
+
+Vendor View (Role 1)
+    Tabs
+        Offers
+            List (Name, expiry date)
+            Paging (Pull to refresh)
+            Add
+            Details
+                Offer (Editable)
+                Delete
+        More
+            Profile (Editable)
+            Reset password
+            logout
+
+
+User View (Role 1)
+    Tabs
+        Offers
+            List (Name, expiry date)
+            Paging (Pull to refresh)
+            Details
+                Steps
+                Delete
+        More
+            Profile (Editable)
+            Reset password
+            logout

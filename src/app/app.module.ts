@@ -26,59 +26,62 @@ import { CustomReuseStrategy } from './custom-reuse-strategy';
 import { MyContributionsComponent } from './my-contributions/my-contributions.component';
 import { ContributeComponent } from './contribute/contribute.component';
 import { OfferComponent } from './offer/offer.component';
-import { VendorComponent } from './vendor/vendor.component';
+import { VendorsComponent } from './vendors/vendors.component';
+import { EditVendorComponent } from './edit-vendor/edit-vendor.component';
 
 const appRoutes = [
-  { path: '', redirectTo: 'my-contributions', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'activate-account/:key', component: ActivateAccountComponent },
-  { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'my-contributions', component: MyContributionsComponent, reuseComponent: true },
-  { path: 'contribute', component: ContributeComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'more', component: MoreComponent, reuseComponent: true },
-  { path: 'offer', component: OfferComponent},
-  { path: 'vendor', component: VendorComponent}
+	{ path: '', redirectTo: 'vendors', pathMatch: 'full' },
+	{ path: 'login', component: LoginComponent },
+	{ path: 'register', component: RegisterComponent },
+	{ path: 'activate-account/:key', component: ActivateAccountComponent },
+	{ path: 'forgot-password', component: ForgotPasswordComponent },
+	{ path: 'reset-password', component: ResetPasswordComponent },
+	{ path: 'my-contributions', component: MyContributionsComponent, reuseComponent: true },
+	{ path: 'contribute', component: ContributeComponent },
+	{ path: 'profile', component: ProfileComponent },
+	{ path: 'more', component: MoreComponent, reuseComponent: true },
+	{ path: 'offer', component: OfferComponent },
+	{ path: 'vendors', component: VendorsComponent },
+	{ path: 'edit-vendor', component: EditVendorComponent }
 ];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    RegisterComponent,
-    HomeComponent,
-    ActivateAccountComponent,
-    ForgotPasswordComponent,
-    ResetPasswordComponent,
-    ProfileComponent,
-    TabBarComponent,
-    MoreComponent,
-    MyContributionsComponent,
-    ContributeComponent,
-    OfferComponent,
-    VendorComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    RouterModule.forRoot(appRoutes),
-    HttpClientModule,
-    ReactiveFormsModule,
-    FormsModule
-  ],
-  providers: [
-    HttpClientModule,
-    HttpClient,
-    Utils,
-    AlertHelper,
-    StorageService,
-    WebServiceService,
-    GlobalsService,
-    {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}
-  ],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		LoginComponent,
+		RegisterComponent,
+		HomeComponent,
+		ActivateAccountComponent,
+		ForgotPasswordComponent,
+		ResetPasswordComponent,
+		ProfileComponent,
+		TabBarComponent,
+		MoreComponent,
+		MyContributionsComponent,
+		ContributeComponent,
+		OfferComponent,
+		VendorsComponent,
+		EditVendorComponent
+	],
+	imports: [
+		BrowserModule,
+		BrowserAnimationsModule,
+		MaterialModule,
+		RouterModule.forRoot(appRoutes),
+		HttpClientModule,
+		ReactiveFormsModule,
+		FormsModule
+	],
+	providers: [
+		HttpClientModule,
+		HttpClient,
+		Utils,
+		AlertHelper,
+		StorageService,
+		WebServiceService,
+		GlobalsService,
+		{provide: RouteReuseStrategy, useClass: CustomReuseStrategy}
+	],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }
