@@ -24,7 +24,24 @@ export class VendorsComponent {
 		} else {
 			this.globals.token = this.storage.getDataForKey(Constants.TOKEN);
 			this.globals.showTabBar = true;
+
+			this.refreshList();
 		}
+	}
+
+	private refreshList() {
+		this.webservice.execute({
+			method: 'vendors',
+			loadingMessage: '',
+			urlParams: {
+				skip: 0,
+				limit: 20
+			},
+			priority: 'high',
+			callback: function(_response) {
+				console.log(_response);
+			}
+		});
 	}
 
 }

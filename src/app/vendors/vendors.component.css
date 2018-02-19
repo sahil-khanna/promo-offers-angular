@@ -8,3 +8,9 @@
 .add-vendor mat-icon {
     font-size: -webkit-xxx-large;
 }
+
+.no-vendor {
+    text-align: center;
+    margin-top: 18vh;
+    color: #979fc7;
+}
