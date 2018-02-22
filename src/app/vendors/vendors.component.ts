@@ -13,6 +13,8 @@ import { GlobalsService } from '../common/service/globals.service';
 })
 export class VendorsComponent {
 
+	private vendors = [];
+
 	constructor(
 		private webservice: WebServiceService,
 		private alertHelper: AlertHelper,
@@ -24,12 +26,12 @@ export class VendorsComponent {
 		} else {
 			this.globals.token = this.storage.getDataForKey(Constants.TOKEN);
 			this.globals.showTabBar = true;
-
 			this.refreshList();
 		}
 	}
 
 	private refreshList() {
+		const $this = this;
 		this.webservice.execute({
 			method: 'vendors',
 			loadingMessage: '',
@@ -39,9 +41,12 @@ export class VendorsComponent {
 			},
 			priority: 'high',
 			callback: function(_response) {
-				console.log(_response);
+				if (_response.code !== 0) {
+					$this.alertHelper.push({text: _response.text});
+				} else {
+					$this.vendors = _response.data;
+				}
 			}
 		});
 	}
-
 }

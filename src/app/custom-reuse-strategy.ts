@@ -2,34 +2,49 @@
 
 import { RouteReuseStrategy, DetachedRouteHandle, ActivatedRouteSnapshot } from '@angular/router';
 import { LoginComponent } from './login/login.component';
+import { Component } from '@angular/core';
 
 export class CustomReuseStrategy implements RouteReuseStrategy {
 
-    private handlers: {[key: string]: DetachedRouteHandle} = {};
+	private handlers: { [key: string]: DetachedRouteHandle } = {};
 
-    constructor() { }
+	constructor() { }
 
-    shouldDetach(route: ActivatedRouteSnapshot): boolean {
-        return (route.routeConfig['reuseComponent'] === true);
-    }
+	/**
+     * Determines if this route (and its subtree) should be detached to be reused later.
+     */
+	shouldDetach(route: ActivatedRouteSnapshot): boolean {
+		return (route.routeConfig['reuseComponent'] === true);
+	}
 
-    store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle): void {
-        this.handlers[route.url.join('/') || route.parent.url.join('/')] = handle;
-    }
+	/**
+     * Stores the detached route.
+     */
+	store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle): void {
+		this.handlers[route.url.join('/') || route.parent.url.join('/')] = handle;
+	}
 
-    shouldAttach(route: ActivatedRouteSnapshot): boolean {
-        if (route.component === LoginComponent) {
-            this.handlers = {};
-        }
+	/**
+     * Determines if this route (and its subtree) should be reattached.
+     */
+	shouldAttach(route: ActivatedRouteSnapshot): boolean {
+		if (route.component === LoginComponent) {
+			this.handlers = {};
+		}
+		return !!this.handlers[route.url.toString()];
+	}
 
-        return !!this.handlers[route.url.toString()];
-    }
+	/**
+     * Retrieves the previously stored route.
+     */
+	retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle {
+		return this.handlers[route.url.join('/') || route.parent.url.join('/')];
+	}
 
-    retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle {
-        return this.handlers[route.url.join('/') || route.parent.url.join('/')];
-    }
-
-    shouldReuseRoute(future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
-        return future.routeConfig === curr.routeConfig;
-    }
+	/**
+     * Determines if a route should be reused.
+     */
+	shouldReuseRoute(future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
+		return future.routeConfig === curr.routeConfig;
+	}
 }

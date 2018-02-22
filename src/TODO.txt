@@ -1,3 +1,7 @@
+Use Icons instead of fonts in mat-icon
+
+
+
 Admin Panel
 
 1) Admin user's will register and activate from User app. roleId will be assigned in DB

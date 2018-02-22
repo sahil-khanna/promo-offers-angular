@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { WebServiceService } from '../common/service/web-service.service';
@@ -12,13 +12,13 @@ import { Utils } from '../common/service/utils.service';
 	templateUrl: './edit-vendor.component.html',
 	styleUrls: ['./edit-vendor.component.css']
 })
-export class EditVendorComponent {
+export class EditVendorComponent implements OnDestroy {
 
 	private name: FormControl = new FormControl();
 	private description: FormControl = new FormControl();
 	private website: FormControl = new FormControl();
 	private email: FormControl = new FormControl();
-	private imageURL: string = Constants.IMAGE_PLACEHOLDER;
+	private image: string = Constants.IMAGE_PLACEHOLDER;
 	private existingVendor: any = null;
 
 	private form = new FormGroup({
@@ -33,7 +33,8 @@ export class EditVendorComponent {
 		private webservice: WebServiceService,
 		private alertHelper: AlertHelper,
 		private globals: GlobalsService,
-		private utils: Utils
+		private utils: Utils,
+		private router: Router
 	) {
 		this.globals.showTabBar = false;
 
@@ -47,17 +48,31 @@ export class EditVendorComponent {
 		});
 	}
 
+	ngOnDestroy() {
+		this.globals.showTabBar = true;
+	}
+
 	private fillData() {
-		this.name.setValue(this.existingVendor.name);
-		this.description.setValue(this.existingVendor.description);
-		this.imageURL = this.existingVendor.imageURL ? this.existingVendor.imageURL : Constants.IMAGE_PLACEHOLDER;
+		if (this.existingVendor) {
+			this.name.setValue(this.existingVendor.name);
+			this.description.setValue(this.existingVendor.description);
+			this.email.setValue(this.existingVendor.email);
+			this.website.setValue(this.existingVendor.website);
+			this.image = this.existingVendor.image ? this.existingVendor.image : Constants.IMAGE_PLACEHOLDER;
+		} else {
+			this.name.setValue('');
+			this.description.setValue('');
+			this.email.setValue('');
+			this.website.setValue('');
+			this.image = Constants.IMAGE_PLACEHOLDER;
+		}
 	}
 
 	/*
 	*  Update profile only is the form is not Pristine
 	*/
-	public submit() {
-		if (this.form.invalid) {
+	private submit() {
+		if (this.form.invalid || this.image === Constants.IMAGE_PLACEHOLDER) {
 			this.name.markAsTouched();
 			this.description.markAsTouched();
 			this.website.markAsTouched();
@@ -65,7 +80,7 @@ export class EditVendorComponent {
 			return;
 		}
 
-		if (!this.form.dirty && this.imageURL.search('data:image') === -1) {
+		if (!this.form.dirty && this.image.search('data:image') === -1) {
 			this.alertHelper.push({
 				text: 'Information updated successfully',
 				type: 'success'
@@ -80,7 +95,7 @@ export class EditVendorComponent {
 			description: this.description.value,
 			website: this.website.value,
 			email: this.email.value,
-			image: (this.imageURL.search('data:image') === -1) ? null : this.imageURL
+			image: (this.image.search('data:image') === -1) ? null : this.image
 		};
 		let method = null;
 
@@ -104,23 +119,24 @@ export class EditVendorComponent {
 
 				if (_response.code === 0) {
 					if (_response.data.imageURL) {
-						$this.imageURL = _response.data.imageURL;
+						$this.image = _response.data.imageURL;
 					}
 
 					$this.form.markAsPristine();
+					$this.router.navigate(['vendors']);
 				} else {
-					// $this.fillData();   // Fill UI with old values
+					$this.fillData();   // Fill UI with old values
 				}
 			}
 		});
 	}
 
-	public imageSelected(event) {
+	private imageSelected(event) {
 		const $this = this;
 
 		const fileReader = new FileReader();
 		fileReader.onload = function (e: any) {
-			$this.imageURL = e.target.result;
+			$this.image = e.target.result;
 		};
 
 		fileReader.readAsDataURL(event.target.files[0]);

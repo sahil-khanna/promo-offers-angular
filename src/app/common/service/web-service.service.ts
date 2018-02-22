@@ -125,8 +125,7 @@ export class WebServiceService {
 		switch (payload.method) {
 			case 'login':
 			case 'register':
-			case 'contribute':
-			case 'create-vendor': {
+			case 'contribute': {
 				reqParams = {
 					type: 'POST',
 					body: payload.body,
@@ -146,12 +145,27 @@ export class WebServiceService {
 				break;
 			}
 			case 'profile':
-			case 'reset-password':
-			case 'update-vendor': {
+			case 'reset-password': {
 				reqParams = {
 					type: 'PUT',
 					body: payload.body,
 					url: this.baseUrl + '/' + payload.method + '/' + this.processURLParameters(payload.urlParams)
+				};
+				break;
+			}
+			case 'create-vendor': {
+				reqParams = {
+					type: 'POST',
+					body: payload.body,
+					url: this.baseUrl + '/' + 'vendors' + '/' + this.processURLParameters(payload.urlParams)
+				};
+				break;
+			}
+			case 'update-vendor': {
+				reqParams = {
+					type: 'PUT',
+					body: payload.body,
+					url: this.baseUrl + '/' + 'vendors' + '/' + this.processURLParameters(payload.urlParams)
 				};
 				break;
 			}

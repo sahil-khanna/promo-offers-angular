@@ -1,14 +1,17 @@
 <mat-toolbar color="primary">
 	<mat-toolbar-row>
 	  <mat-icon (click)="utils.goBack()">arrow_back</mat-icon>
-	  <span>New Vendor</span>
+	  <span>{{ existingVendor ? 'Update Vendor' : 'New Vendor'}}</span>
 	</mat-toolbar-row>
   </mat-toolbar>
 <div class="col-md-6 col-md-offset-3">
 	<form [formGroup]="form" (ngSubmit)="submit()" class="form">
 		<br>
-		<img src="{{imageURL}}" class="profile-image" (click)="imageInput.click()">
+		<img src="{{image}}" class="profile-image" (click)="imageInput.click()">
 		<input hidden type="file" #imageInput (change)="imageSelected($event)" accept="image/*" />
+		<div class="form-error-message" *ngIf="this.form.valid && imageURL === 'assets/avatar-placeholder.png'">
+			<p>Image is required</p>
+		</div>
 
 		<mat-form-field>
 			<input type="text" matInput placeholder="Name" formControlName="name" minlength="5" maxlength="100" required>

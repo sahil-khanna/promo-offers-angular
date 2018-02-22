@@ -1,7 +1,10 @@
-<div class="no-vendor">
+<div class="no-vendor" *ngIf="vendors.length === 0">
     <mat-icon>error_outline</mat-icon>
     <div>No data available</div>
 </div>
+<mat-list class="list-item">
+    <mat-list-item *ngFor="let vendor of vendors" [routerLink]="['/edit-vendor']" [queryParams]="vendor">{{ vendor.name }}</mat-list-item>
+</mat-list>
 <button mat-icon-button class="add-vendor" [routerLink]="['/edit-vendor']">
     <mat-icon>add_circle_outline</mat-icon>
 </button>

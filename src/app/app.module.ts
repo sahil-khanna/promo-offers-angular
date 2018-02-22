@@ -41,7 +41,7 @@ const appRoutes = [
 	{ path: 'profile', component: ProfileComponent },
 	{ path: 'more', component: MoreComponent, reuseComponent: true },
 	{ path: 'offer', component: OfferComponent },
-	{ path: 'vendors', component: VendorsComponent },
+	{ path: 'vendors', component: VendorsComponent, reuseComponent: true },
 	{ path: 'edit-vendor', component: EditVendorComponent }
 ];
 
