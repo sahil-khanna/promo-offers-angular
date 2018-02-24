@@ -1,7 +1,7 @@
 interface WebServiceParams {
 	method: 'login' | 'register' | 'activate-account' | 'forgot-password' |
 	'reset-password' | 'logout' | 'profile' | 'contribute' | 'contributions'|
-	'vendors' | 'create-vendor' | 'update-vendor';
+	'vendors' | 'create-vendor' | 'update-vendor' | 'delete-vendor';
 	body?: any;
 	urlParams?: any;
 	priority: 'high' | 'low';
@@ -165,6 +165,13 @@ export class WebServiceService {
 				reqParams = {
 					type: 'PUT',
 					body: payload.body,
+					url: this.baseUrl + '/' + 'vendors' + '/' + this.processURLParameters(payload.urlParams)
+				};
+				break;
+			}
+			case 'delete-vendor': {
+				reqParams = {
+					type: 'DELETE',
 					url: this.baseUrl + '/' + 'vendors' + '/' + this.processURLParameters(payload.urlParams)
 				};
 				break;

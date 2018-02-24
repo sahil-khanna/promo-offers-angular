@@ -1,6 +1,4 @@
-Use Icons instead of fonts in mat-icon
-
-
+Handle internet connectivity for Webservice. navigator.connection
 
 Admin Panel
 

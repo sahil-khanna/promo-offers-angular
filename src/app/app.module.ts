@@ -6,6 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { MaterialModule } from './material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouteReuseStrategy } from '@angular/router';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -80,8 +82,14 @@ const appRoutes = [
 		StorageService,
 		WebServiceService,
 		GlobalsService,
-		{provide: RouteReuseStrategy, useClass: CustomReuseStrategy}
+		{ provide: RouteReuseStrategy, useClass: CustomReuseStrategy }
 	],
 	bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+	constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
+		matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('/assets/material_design_icons.svg'));
+	}
+
+}

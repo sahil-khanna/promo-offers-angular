@@ -43,6 +43,7 @@ export class EditVendorComponent implements OnDestroy {
 			if (JSON.stringify(params).length > 2) {
 				$this.existingVendor = params;
 				$this.name.disable();
+				this.email.disable();
 				$this.fillData();
 			}
 		});
@@ -95,12 +96,12 @@ export class EditVendorComponent implements OnDestroy {
 			description: this.description.value,
 			website: this.website.value,
 			email: this.email.value,
-			image: (this.image.search('data:image') === -1) ? null : this.image
+			image: (this.image.search('data:image') === -1) ? 'no_change' : this.image
 		};
 		let method = null;
 
 		if (this.existingVendor) {
-			body.id = this.existingVendor.id;
+			body.id = this.existingVendor._id;
 			method = 'update-vendor';
 		} else {
 			method = 'create-vendor';
@@ -118,10 +119,6 @@ export class EditVendorComponent implements OnDestroy {
 				});
 
 				if (_response.code === 0) {
-					if (_response.data.imageURL) {
-						$this.image = _response.data.imageURL;
-					}
-
 					$this.form.markAsPristine();
 					$this.router.navigate(['vendors']);
 				} else {
@@ -140,6 +137,35 @@ export class EditVendorComponent implements OnDestroy {
 		};
 
 		fileReader.readAsDataURL(event.target.files[0]);
+	}
+
+	private delete() {
+		const $this = this;
+		this.alertHelper.push({
+			text: 'Are you sure you want to delete?',
+			cancelButtonText: 'Cancel',
+			confirmButtonText: 'Yes',
+			onConfirm: function() {
+				$this.webservice.execute({
+					method: 'delete-vendor',
+					loadingMessage: '',
+					urlParams: {
+						id: $this.existingVendor._id
+					},
+					priority: 'high',
+					callback: function(_response) {
+						$this.alertHelper.push({
+							text: _response.message,
+							type: (_response.code === 0) ? 'success' : 'error'
+						});
+
+						if (_response.code === 0) {
+							$this.router.navigate(['vendors']);
+						}
+					}
+				});
+			}
+		});
 	}
 
 }

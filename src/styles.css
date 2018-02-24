@@ -7,9 +7,17 @@
     margin-top: -15px;
 }
 
+.error {
+    color: red;
+}
+
 .right-aligned {
     position: absolute;
     right: 10px;
+}
+
+.nav-bar-button-right {
+    margin-left: auto;
 }
 
 .form {

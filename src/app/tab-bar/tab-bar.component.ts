@@ -24,13 +24,13 @@ export class TabBarComponent implements OnInit {
 			this.tabItems = [
 				{
 					name: 'Vendors',
-					icon: 'store_mall_directory',
+					icon: 'store',
 					class: 'selected',
 					target: 'vendors'
 				},
 				{
 					name: 'More',
-					icon: 'more_horiz',
+					icon: 'dots-horizontal',
 					target: 'more'
 				}
 			];
