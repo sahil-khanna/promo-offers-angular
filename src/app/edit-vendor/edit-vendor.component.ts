@@ -96,7 +96,7 @@ export class EditVendorComponent implements OnDestroy {
 			description: this.description.value,
 			website: this.website.value,
 			email: this.email.value,
-			image: (this.image.search('data:image') === -1) ? 'no_change' : this.image
+			image: (this.image.search('data:image') === -1) ? 'no_change' : this.image,
 		};
 		let method = null;
 
@@ -152,6 +152,43 @@ export class EditVendorComponent implements OnDestroy {
 					urlParams: {
 						id: $this.existingVendor._id
 					},
+					priority: 'high',
+					callback: function(_response) {
+						$this.alertHelper.push({
+							text: _response.message,
+							type: (_response.code === 0) ? 'success' : 'error'
+						});
+
+						if (_response.code === 0) {
+							$this.router.navigate(['vendors']);
+						}
+					}
+				});
+			}
+		});
+	}
+
+	private changeStatus() {
+		const body: any = {
+			name: this.name.value,
+			description: this.description.value,
+			website: this.website.value,
+			email: this.email.value,
+			image: (this.image.search('data:image') === -1) ? 'no_change' : this.image,
+			id: this.existingVendor._id,
+			isEnabled: !(this.existingVendor.isEnabled === 'true')
+		};
+
+		const $this = this;
+		this.alertHelper.push({
+			text: 'Are you sure you want to ' + ((this.existingVendor.isEnabled === 'true') ? 'disable?' : 'enable?'),
+			cancelButtonText: 'Cancel',
+			confirmButtonText: 'Yes',
+			onConfirm: function() {
+				$this.webservice.execute({
+					method: 'update-vendor',
+					loadingMessage: '',
+					body: body,
 					priority: 'high',
 					callback: function(_response) {
 						$this.alertHelper.push({

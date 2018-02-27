@@ -2,11 +2,11 @@ Handle internet connectivity for Webservice. navigator.connection
 
 Admin Panel
 
-1) Admin user's will register and activate from User app. roleId will be assigned in DB
+Done: 1) Admin user's will register and activate from User app. roleId will be assigned in DB
 2) Roles of Admin
-    2.1) Create/Edit/Delete Vendor
+    Done: 2.1) Create/Edit/Delete Vendor
     2.2) Set expiry date of subscription
-    2.3) Enable/Disable vendor momentarily
+    Done: 2.3) Enable/Disable vendor momentarily
 3) Roles of Vendor
     2.1) Create/Delete Offers
     2.2) Edit self details (website, description, name, logo)

@@ -3,7 +3,10 @@
     <div class="error">No data available</div>
 </div>
 <mat-list class="list-item">
-    <mat-list-item *ngFor="let vendor of vendors" [routerLink]="['/edit-vendor']" [queryParams]="vendor">{{ vendor.name }}</mat-list-item>
+    <div *ngFor="let vendor of vendors">
+        <img src="{{vendor.image}}" class="vendor-icon"/>
+        <mat-list-item [routerLink]="['/edit-vendor']" [queryParams]="vendor">{{ vendor.name }}</mat-list-item>
+    </div>
 </mat-list>
 <button mat-icon-button class="add-vendor" [routerLink]="['/edit-vendor']">
     <img src="assets/plus-circle-outline.png" />
