@@ -1,6 +1,6 @@
 <div #tabBar class="tab-bar">
   <div *ngFor="let tabItem of tabItems; let i = index" class="tab-bar-item {{tabItem.class}}" [style.width]="tabItemWidth" (click)="tabSelected(i)">
-    <mat-icon svgIcon="{{tabItem.icon}}"></mat-icon>
+    <mat-icon>{{tabItem.icon}}</mat-icon>
     <span>{{tabItem.name}}</span>
   </div>
 </div>

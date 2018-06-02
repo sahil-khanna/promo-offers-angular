@@ -13,7 +13,7 @@ import { GlobalsService } from '../common/service/globals.service';
 })
 export class VendorsComponent {
 
-	private vendors = [];
+	private vendors = null;
 
 	constructor(
 		private webservice: WebServiceService,

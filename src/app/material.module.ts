@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { MatInputModule, MatButtonModule, MatToolbarModule, MatFormFieldModule, MatProgressSpinnerModule,
-	MatRadioModule, MatMenuModule, MatIconModule, MatCardModule, MatDatepickerModule,
+	MatRadioModule, MatMenuModule, MatCardModule, MatDatepickerModule,
 	MatNativeDateModule } from '@angular/material';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
 import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
 	imports: [

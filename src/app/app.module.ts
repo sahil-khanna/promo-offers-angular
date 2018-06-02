@@ -88,8 +88,8 @@ const appRoutes = [
 })
 export class AppModule {
 
-	constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
-		matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('/assets/material_design_icons.svg'));
-	}
+	// constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
+	// 	matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('/assets/material_design_icons.svg'));
+	// }
 
 }

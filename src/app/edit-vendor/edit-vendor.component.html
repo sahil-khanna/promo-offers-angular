@@ -1,10 +1,10 @@
 <mat-toolbar color="primary">
 	<mat-toolbar-row>
-	  <mat-icon svgIcon="arrow-left" (click)="utils.goBack()"></mat-icon>
+	  <mat-icon (click)="utils.goBack()">arrow_back</mat-icon>
 	  <span>{{ existingVendor ? 'Update Vendor' : 'New Vendor'}}</span>
 	  <div class="nav-bar-section-right" *ngIf="existingVendor">
-		<mat-icon svgIcon="{{(existingVendor.isEnabled === 'true') ? 'cloud-outline' : 'cloud-off-outline'}}" (click)="changeStatus()"></mat-icon>
-		<mat-icon svgIcon="delete" (click)="delete()"></mat-icon>
+		<mat-icon (click)="changeStatus()">{{(existingVendor.isEnabled === 'true') ? 'cloud_queue' : 'cloud_off'}}</mat-icon>
+		<mat-icon (click)="delete()">delete</mat-icon>
 	  </div>
 	</mat-toolbar-row>
   </mat-toolbar>
