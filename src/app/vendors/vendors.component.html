@@ -4,7 +4,7 @@
 </div>
 <mat-list class="list-item">
     <mat-list-item *ngFor="let vendor of vendors" [routerLink]="['/edit-vendor']" [queryParams]="vendor">
-        <img src="{{vendor.image}}" class="vendor-icon"/>
+        <img src="{{vendor.imagePath}}" class="vendor-icon"/>
         <div class="vendor-name">{{ vendor.name }}</div>
         <mat-icon class="list-item-more">keyboard_arrow_right</mat-icon>
     </mat-list-item>

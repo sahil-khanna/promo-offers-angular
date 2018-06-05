@@ -98,6 +98,7 @@ export class EditVendorComponent implements OnDestroy {
 			email: this.email.value,
 			image: (this.image.search('data:image') === -1) ? 'no_change' : this.image,
 		};
+
 		let method = null;
 
 		if (this.existingVendor) {
