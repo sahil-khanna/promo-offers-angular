@@ -29,4 +29,13 @@
 
 .vendor-name {
     margin-left: 10px;
+    width: 95%; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}
+
+.vendor-status {
+    font-size: x-small;
+    margin-top: 16px;
+    margin-left: -10px;
 }

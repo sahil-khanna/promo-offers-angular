@@ -13,9 +13,11 @@ import { GlobalsService } from '../common/service/globals.service';
 export class MoreComponent {
 
 	private userEmail: string;
+	private showProfile: boolean;
 
 	constructor(private utils: Utils, private storage: StorageService, private alertHelper: AlertHelper, private globals: GlobalsService) {
 		this.userEmail = this.storage.getDataForKey(Constants.USER_PROFILE).email;
+		this.showProfile = this.storage.getDataForKey(Constants.ROLE_ID) === Constants.ROLE_USER;
 		this.globals.showTabBar = true;
 	}
 

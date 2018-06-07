@@ -34,19 +34,33 @@ export class TabBarComponent implements OnInit {
 					target: 'more'
 				}
 			];
-		} else if (roleId === Constants.ROLE_USER) {
+		} else if (roleId === Constants.ROLE_VENDOR) {
 			this.tabItems = [
 				{
-					name: 'My Contributions',
-					icon: 'home',
+					name: 'Offers',
+					icon: 'local_offer',
 					class: 'selected',
-					target: 'my-contributions'
+					target: 'offers'
 				},
 				{
-					name: 'Contribute',
-					icon: 'location_searching',
-					target: 'contribute'
-				},
+					name: 'More',
+					icon: 'more_horiz',
+					target: 'more'
+				}
+			];
+		} else if (roleId === Constants.ROLE_USER) {
+			this.tabItems = [
+				// {
+				// 	name: 'My Contributions',
+				// 	icon: 'home',
+				// 	class: 'selected',
+				// 	target: 'my-contributions'
+				// },
+				// {
+				// 	name: 'Contribute',
+				// 	icon: 'location_searching',
+				// 	target: 'contribute'
+				// },
 				{
 					name: 'More',
 					icon: 'more_horiz',
