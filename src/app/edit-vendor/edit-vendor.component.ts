@@ -3,9 +3,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { WebServiceService } from '../common/service/web-service.service';
 import { AlertHelper } from '../common/service/alert-helper.service';
-import { Constants } from '../common/constants';
 import { GlobalsService } from '../common/service/globals.service';
 import { Utils } from '../common/service/utils.service';
+import { ConstantsService } from '../common/service/constants.service';
 
 @Component({
 	selector: 'app-edit-vendor',
@@ -18,7 +18,7 @@ export class EditVendorComponent implements OnDestroy {
 	private description: FormControl = new FormControl();
 	private website: FormControl = new FormControl();
 	private email: FormControl = new FormControl();
-	private image: string = Constants.IMAGE_PLACEHOLDER;
+	private image: String = null;
 	private existingVendor: any = null;
 
 	private form = new FormGroup({
@@ -34,9 +34,11 @@ export class EditVendorComponent implements OnDestroy {
 		private alertHelper: AlertHelper,
 		private globals: GlobalsService,
 		private utils: Utils,
-		private router: Router
+		private router: Router,
+		private constants: ConstantsService
 	) {
 		this.globals.showTabBar = false;
+		this.image = constants.IMAGE_PLACEHOLDER;
 
 		const $this = this;
 		this.activatedRoute.queryParams.subscribe((params: any) => {
@@ -59,13 +61,13 @@ export class EditVendorComponent implements OnDestroy {
 			this.description.setValue(this.existingVendor.description);
 			this.email.setValue(this.existingVendor.email);
 			this.website.setValue(this.existingVendor.website);
-			this.image = this.existingVendor.image ? this.existingVendor.image : Constants.IMAGE_PLACEHOLDER;
+			this.image = this.existingVendor.image ? this.existingVendor.image : this.constants.IMAGE_PLACEHOLDER;
 		} else {
 			this.name.setValue('');
 			this.description.setValue('');
 			this.email.setValue('');
 			this.website.setValue('');
-			this.image = Constants.IMAGE_PLACEHOLDER;
+			this.image = this.constants.IMAGE_PLACEHOLDER;
 		}
 	}
 
@@ -73,7 +75,7 @@ export class EditVendorComponent implements OnDestroy {
 	*  Update profile only is the form is not Pristine
 	*/
 	private submit() {
-		if (this.form.invalid || this.image === Constants.IMAGE_PLACEHOLDER) {
+		if (this.form.invalid || this.image === this.constants.IMAGE_PLACEHOLDER) {
 			this.name.markAsTouched();
 			this.description.markAsTouched();
 			this.website.markAsTouched();

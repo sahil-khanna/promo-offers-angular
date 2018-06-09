@@ -30,9 +30,11 @@ import { ContributeComponent } from './contribute/contribute.component';
 import { OfferComponent } from './offer/offer.component';
 import { VendorsComponent } from './vendors/vendors.component';
 import { EditVendorComponent } from './edit-vendor/edit-vendor.component';
+import { ConstantsService } from './common/service/constants.service';
 
 const appRoutes = [
-	{ path: '', redirectTo: 'vendors', pathMatch: 'full' },
+	{ path: '', redirectTo: 'home', pathMatch: 'full' },
+	{ path: 'home', component: HomeComponent },
 	{ path: 'login', component: LoginComponent },
 	{ path: 'register', component: RegisterComponent },
 	{ path: 'activate-account/:key', component: ActivateAccountComponent },
@@ -82,6 +84,7 @@ const appRoutes = [
 		StorageService,
 		WebServiceService,
 		GlobalsService,
+		ConstantsService,
 		{ provide: RouteReuseStrategy, useClass: CustomReuseStrategy }
 	],
 	bootstrap: [AppComponent]

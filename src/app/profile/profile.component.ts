@@ -5,8 +5,8 @@ import { StorageService } from '../common/service/storage.service';
 import { WebServiceService } from '../common/service/web-service.service';
 import { AlertHelper } from '../common/service/alert-helper.service';
 import { Utils } from '../common/service/utils.service';
-import { Constants } from '../common/constants';
 import { GlobalsService } from '../common/service/globals.service';
+import { ConstantsService } from '../common/service/constants.service';
 
 @Component({
 	selector: 'app-profile',
@@ -35,7 +35,8 @@ export class ProfileComponent implements OnInit {
 		private webservice: WebServiceService,
 		private alertHelper: AlertHelper,
 		private utils: Utils,
-		private globals: GlobalsService
+		private globals: GlobalsService,
+		private constants: ConstantsService
 	) {
 		this.globals.showTabBar = false;
 	}
@@ -45,13 +46,13 @@ export class ProfileComponent implements OnInit {
 	}
 
 	private fillData() {
-		const profile: any = this.storage.getDataForKey(Constants.USER_PROFILE);
+		const profile: any = this.storage.getDataForKey(this.constants.USER_PROFILE);
 		this.mobile.setValue(profile.mobile);
 		this.firstName.setValue(profile.firstName);
 		this.lastName.setValue(profile.lastName);
 		this.gender.setValue((profile.gender === true) ? '1' : '2');
 		this.email = profile.email;
-		this.imageURL = profile.imageURL ? profile.imageURL : Constants.IMAGE_PLACEHOLDER;
+		this.imageURL = profile.imageURL ? profile.imageURL : this.constants.IMAGE_PLACEHOLDER;
 	}
 
 	/*
@@ -95,7 +96,7 @@ export class ProfileComponent implements OnInit {
 				});
 
 				if (_response.code === 0) {
-					$this.storage.setDataForKey(Constants.USER_PROFILE, _response.data);
+					$this.storage.setDataForKey(this.constants.USER_PROFILE, _response.data);
 					if (_response.data.imageURL) {
 						$this.imageURL = _response.data.imageURL;
 					}

@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Utils } from '../common/service/utils.service';
 import { StorageService } from '../common/service/storage.service';
 import { AlertHelper } from '../common/service/alert-helper.service';
-import { Constants } from '../common/constants';
 import { GlobalsService } from '../common/service/globals.service';
+import { ConstantsService } from '../common/service/constants.service';
 
 @Component({
 	selector: 'app-more',
@@ -15,9 +15,15 @@ export class MoreComponent {
 	private userEmail: string;
 	private showProfile: boolean;
 
-	constructor(private utils: Utils, private storage: StorageService, private alertHelper: AlertHelper, private globals: GlobalsService) {
-		this.userEmail = this.storage.getDataForKey(Constants.USER_PROFILE).email;
-		this.showProfile = this.storage.getDataForKey(Constants.ROLE_ID) === Constants.ROLE_USER;
+	constructor(
+		private utils: Utils,
+		private storage: StorageService,
+		private alertHelper: AlertHelper,
+		private globals: GlobalsService,
+		private constants: ConstantsService
+	) {
+		this.userEmail = this.storage.getDataForKey(constants.USER_PROFILE).email;
+		this.showProfile = this.storage.getDataForKey(constants.ROLE_ID) === constants.ROLE_USER;
 		this.globals.showTabBar = true;
 	}
 

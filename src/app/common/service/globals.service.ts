@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class GlobalsService {
 
-	public token: string;
-	public showLoading: boolean;
-	public showTabBar: boolean;
+	public token: String;
+	public showLoading: Boolean;
+	public showTabBar: Boolean = true;
 
 	constructor() { }
 

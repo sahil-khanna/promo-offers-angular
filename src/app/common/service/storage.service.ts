@@ -33,14 +33,14 @@ export class StorageService {
 	/*
 	 *  Remove key from Storage
 	 */
-	public remove(key: string) {
+	public remove(key: String) {
 		localStorage.removeItem(this.encode(key));
 	}
 
 	/*
 	 *  Getter method for LocalStorage
 	 */
-	public getDataForKey(key: string): any {
+	public getDataForKey(key: String): any {
 		let data = this.decode(localStorage.getItem(this.encode(key)));
 
 		try {
@@ -55,7 +55,7 @@ export class StorageService {
 	/*
 	 *  Setter method for LocalStorage
 	 */
-	public setDataForKey(key: string, data: any) {
+	public setDataForKey(key: String, data: any) {
 		if (data == null) {
 			return;
 		} else if (typeof data === 'number' || typeof data === 'boolean' || typeof data === 'string') {

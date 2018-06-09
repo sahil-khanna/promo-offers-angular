@@ -17,7 +17,7 @@ interface RequestParams {
 
 interface RespoonseMessage {
 	code: Number;
-	message?: string;
+	message?: String;
 	data?: any;
 }
 
@@ -31,7 +31,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { Utils } from './utils.service';
 import { StorageService } from './storage.service';
-import { Constants } from '../constants';
+import { ConstantsService } from './constants.service';
 
 @Injectable()
 export class WebServiceService {
@@ -48,6 +48,7 @@ export class WebServiceService {
 	constructor(
 		private injector: Injector,
 		private http: HttpClient,
+		private constants: ConstantsService
 	) {
 		const $this = this;
 		setTimeout(() => {
@@ -226,21 +227,21 @@ export class WebServiceService {
 			body: reqParams.body,
 			responseType: 'json',
 			headers: {
-				'x-token': this.utils.nullToObject(this.storage.getDataForKey(Constants.TOKEN), '')
+				'x-token': this.utils.nullToObject(this.storage.getDataForKey(this.constants.TOKEN), '')
 			},
 			observe: 'response'
 		}).subscribe(
 			(_response: any) => {
 				const newToken = _response.headers.get('x-token');
 				if (newToken) {
-					this.storage.setDataForKey(Constants.TOKEN, newToken);
+					this.storage.setDataForKey(this.constants.TOKEN, newToken);
 				}
 				onComplete(_response.body);
 			},
 			_error => {
 				onComplete({
 					code: -1,
-					message: Constants.WEBSERVICE_INTERNET_NOT_CONNNECTED
+					message: this.constants.WEBSERVICE_INTERNET_NOT_CONNNECTED
 				});
 			}
 		);
