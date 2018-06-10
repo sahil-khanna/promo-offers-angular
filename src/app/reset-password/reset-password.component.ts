@@ -30,7 +30,6 @@ export class ResetPasswordComponent {
 		private utils: Utils,
 		private globals: GlobalsService
 	) {
-		this.globals.showTabBar = false;
 		const $this = this;
 		this.activatedRoute.queryParams.subscribe((params: any) => {
 			$this.email = params.email;

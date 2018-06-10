@@ -27,7 +27,6 @@ export class VendorsComponent {
 			this.router.navigate(['login']);
 		} else {
 			this.globals.token = this.storage.getDataForKey(this.constants.TOKEN);
-			this.globals.showTabBar = true;
 			this.refreshList();
 		}
 	}

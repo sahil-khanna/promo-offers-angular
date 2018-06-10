@@ -1,2 +1,4 @@
-<!-- <router-outlet></router-outlet> -->
-<app-tab-bar *ngIf="globals.token && globals.showTabBar"></app-tab-bar>
+<app-vendors *ngIf="homeLoaded == true && globals.selectedTabId == constants.TAB_VENDORS"></app-vendors>
+<app-offers *ngIf="homeLoaded == true && globals.selectedTabId == constants.TAB_OFFERS"></app-offers>
+<app-more *ngIf="globals.selectedTabId == constants.TAB_MORE"></app-more>
+<app-tab-bar></app-tab-bar>

@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { WebServiceService } from '../common/service/web-service.service';
@@ -12,7 +12,7 @@ import { ConstantsService } from '../common/service/constants.service';
 	templateUrl: './edit-vendor.component.html',
 	styleUrls: ['./edit-vendor.component.css']
 })
-export class EditVendorComponent implements OnDestroy {
+export class EditVendorComponent {
 
 	private name: FormControl = new FormControl();
 	private description: FormControl = new FormControl();
@@ -37,7 +37,6 @@ export class EditVendorComponent implements OnDestroy {
 		private router: Router,
 		private constants: ConstantsService
 	) {
-		this.globals.showTabBar = false;
 		this.image = constants.IMAGE_PLACEHOLDER;
 
 		const $this = this;
@@ -49,10 +48,6 @@ export class EditVendorComponent implements OnDestroy {
 				$this.fillData();
 			}
 		});
-	}
-
-	ngOnDestroy() {
-		this.globals.showTabBar = true;
 	}
 
 	private fillData() {

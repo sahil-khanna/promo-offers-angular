@@ -37,9 +37,7 @@ export class ProfileComponent implements OnInit {
 		private utils: Utils,
 		private globals: GlobalsService,
 		private constants: ConstantsService
-	) {
-		this.globals.showTabBar = false;
-	}
+	) { }
 
 	ngOnInit() {
 		this.fillData();

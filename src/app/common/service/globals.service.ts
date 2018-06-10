@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
 export class GlobalsService {
 
 	public token: String;
-	public showLoading: Boolean;
-	public showTabBar: Boolean = true;
+	public showLoading: Boolean = false;
+	public selectedTabId: Number;
 
 	constructor() { }
 

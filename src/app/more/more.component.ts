@@ -24,7 +24,6 @@ export class MoreComponent {
 	) {
 		this.userEmail = this.storage.getDataForKey(constants.USER_PROFILE).email;
 		this.showProfile = this.storage.getDataForKey(constants.ROLE_ID) === constants.ROLE_USER;
-		this.globals.showTabBar = true;
 	}
 
 	public logout() {

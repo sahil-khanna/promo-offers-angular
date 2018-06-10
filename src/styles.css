@@ -44,6 +44,24 @@
     border-bottom-width: thin;
 }
 
-.list-item-more {
-    /* margin-left: 5px; */
+.add-item-floating {
+    position: fixed;
+    right: 50px;
+    bottom: 78px;
+}
+
+.add-item-floating mat-icon {
+    color: #009CF1;
+    font-size: -webkit-xxx-large;
+}
+
+.no-data-list {
+    text-align: center;
+    margin-top: 18vh;
+    color: red;
+}
+
+.no-data-list mat-icon {
+    margin-left: -20px;
+    font-size: -webkit-xxx-large;
 }

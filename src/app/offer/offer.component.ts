@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import * as moment from 'moment';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { Utils } from '../common/service/utils.service';
 
 @Component({
 	selector: 'app-offer',
@@ -43,7 +44,9 @@ export class OfferComponent {
 		discountPercent: this.discountPercent
 	});
 
-	constructor() { }
+	constructor(
+		private utils: Utils
+	) { }
 
 	private submit() {
 		if (this.form.invalid) {

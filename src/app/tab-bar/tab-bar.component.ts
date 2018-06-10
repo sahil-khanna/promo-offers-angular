@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { StorageService } from '../common/service/storage.service';
 import { ConstantsService } from '../common/service/constants.service';
+import { GlobalsService } from '../common/service/globals.service';
 
 @Component({
 	selector: 'app-tab-bar',
@@ -13,72 +14,73 @@ export class TabBarComponent implements OnInit {
 	@ViewChild('tabBar') tabBar: ElementRef;
 
 	public tabItemWidth: String = '0';
-	public tabItems: Array<{ name: string, icon: string, class?: string, target: string }> = [];
+	public tabItems: Array<{ name: String, icon: String, class?: String, target: String, id: Number }> = [];
 
 	constructor(
 		private router: Router,
 		private storage: StorageService,
-		private constants: ConstantsService
-	) { }
+		private constants: ConstantsService,
+		private globals: GlobalsService
+	) {
+		console.log('Tabbar Constructor');
+	}
 
 	ngOnInit() {
 		const roleId = this.storage.getDataForKey(this.constants.ROLE_ID);
-
 		switch (roleId) {
 			case this.constants.ROLE_ADMIN: {
 				this.tabItems = [
 					{
 						name: 'Vendors',
 						icon: 'shopping_basket',
-						class: 'selected',
-						target: 'vendors'
+						target: 'vendors',
+						id: this.constants.TAB_VENDORS
 					},
 					{
 						name: 'More',
 						icon: 'more_horiz',
-						target: 'more'
+						target: 'more',
+						id: this.constants.TAB_MORE
 					}
 				];
 				break;
 			}
-			case roleId === this.constants.ROLE_VENDOR: {
+			case this.constants.ROLE_VENDOR: {
 				this.tabItems = [
 					{
 						name: 'Offers',
 						icon: 'local_offer',
-						class: 'selected',
-						target: 'offers'
+						target: 'offers',
+						id: this.constants.TAB_OFFERS
 					},
 					{
 						name: 'More',
 						icon: 'more_horiz',
-						target: 'more'
+						target: 'more',
+						id: this.constants.TAB_MORE
 					}
 				];
 				break;
 			}
 			case this.constants.ROLE_USER: {
 				this.tabItems = [
-					// {
-					// 	name: 'My Contributions',
-					// 	icon: 'home',
-					// 	class: 'selected',
-					// 	target: 'my-contributions'
-					// },
-					// {
-					// 	name: 'Contribute',
-					// 	icon: 'location_searching',
-					// 	target: 'contribute'
-					// },
 					{
 						name: 'More',
 						icon: 'more_horiz',
-						target: 'more'
+						target: 'more',
+						id: this.constants.TAB_MORE
 					}
 				];
 				break;
 			}
 		}
+
+		// Select the first tab item
+		const tabItem = this.tabItems[0];
+		tabItem['class'] = 'selected';
+		this.globals.selectedTabId = tabItem.id;
+
+		console.log('TabBar: selectedTabItem: ' + this.globals.selectedTabId);
 
 		this.tabItemWidth = this.tabBar.nativeElement.offsetWidth / this.tabItems.length + 'px';
 	}
@@ -90,6 +92,6 @@ export class TabBarComponent implements OnInit {
 
 		const item = this.tabItems[selectedIndex];
 		item.class = 'selected';
-		this.router.navigate([item.target]);
+		this.globals.selectedTabId = item.id;
 	}
 }

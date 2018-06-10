@@ -31,6 +31,7 @@ import { OfferComponent } from './offer/offer.component';
 import { VendorsComponent } from './vendors/vendors.component';
 import { EditVendorComponent } from './edit-vendor/edit-vendor.component';
 import { ConstantsService } from './common/service/constants.service';
+import { OffersComponent } from './offers/offers.component';
 
 const appRoutes = [
 	{ path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -65,7 +66,8 @@ const appRoutes = [
 		ContributeComponent,
 		OfferComponent,
 		VendorsComponent,
-		EditVendorComponent
+		EditVendorComponent,
+		OffersComponent
 	],
 	imports: [
 		BrowserModule,

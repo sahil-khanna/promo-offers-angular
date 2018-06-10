@@ -1,0 +1,14 @@
+<div class="no-data-list" *ngIf="offers && offers.length === 0">
+  <mat-icon>error_outline</mat-icon>
+  <div class="error">No data available</div>
+</div>
+<mat-list class="list-item">
+  <mat-list-item *ngFor="let offer of offers" [routerLink]="['/offer']" [queryParams]="offer">
+      <!-- <mat-icon class="vendor-status" [style.color]="vendor.status ? 'green': 'red'">lens</mat-icon> -->
+      <div class="offer-name">{{ offer.name }}</div>
+      <mat-icon class="list-item-more">keyboard_arrow_right</mat-icon>
+  </mat-list-item>
+</mat-list>
+<button class="add-item-floating" [routerLink]="['/offer']">
+  <mat-icon>add_circle_outline</mat-icon>
+</button>

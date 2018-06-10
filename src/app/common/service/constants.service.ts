@@ -18,4 +18,9 @@ export class ConstantsService {
 	public readonly ROLE_ADMIN: Number = 1;
 	public readonly ROLE_VENDOR: Number = 2;
 	public readonly ROLE_USER: Number = 3;
+
+	// Tab Item id
+	public readonly TAB_MORE: Number = 1;
+	public readonly TAB_OFFERS: Number = 2;
+	public readonly TAB_VENDORS: Number = 3;
 }

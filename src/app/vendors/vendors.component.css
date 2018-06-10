@@ -1,25 +1,3 @@
-.add-vendor {
-    position: fixed;
-    right: 50px;
-    bottom: 78px;
-}
-
-.add-vendor mat-icon {
-    color: #009CF1;
-    font-size: -webkit-xxx-large;
-}
-
-.no-vendor {
-    text-align: center;
-    margin-top: 18vh;
-    color: red;
-}
-
-.no-vendor mat-icon {
-    margin-left: -20px;
-    font-size: -webkit-xxx-large;
-}
-
 .vendor-icon {
     width: 36px;
     height: 36px;
