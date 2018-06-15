@@ -52,7 +52,7 @@ export class LoginComponent {
 					$this.storage.setDataForKey($this.constants.USER_PROFILE, _response.data.profile);
 					$this.storage.setDataForKey($this.constants.TOKEN, _response.data.token);
 					$this.storage.setDataForKey($this.constants.ROLE_ID, _response.data.roleId);
-					$this.router.navigate(['']);
+					$this.router.navigate(['home']);
 				} else {
 					$this.alertHelper.push({
 						text: _response.message,

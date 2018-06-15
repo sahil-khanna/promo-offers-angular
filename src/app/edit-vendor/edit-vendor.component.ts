@@ -93,7 +93,8 @@ export class EditVendorComponent {
 			description: this.description.value,
 			website: this.website.value,
 			email: this.email.value,
-			image: (this.image.search('data:image') === -1) ? 'no_change' : this.image,
+			// image: (this.image.search('data:image') === -1) ? 'no_change' : this.image,
+			image: (this.image.search('data:image') === -1) ? null : this.image
 		};
 
 		let method = null;
@@ -118,7 +119,7 @@ export class EditVendorComponent {
 
 				if (_response.code === 0) {
 					$this.form.markAsPristine();
-					$this.router.navigate(['vendors']);
+					$this.router.navigate(['home']);
 				} else {
 					$this.fillData();   // Fill UI with old values
 				}
@@ -172,7 +173,8 @@ export class EditVendorComponent {
 			description: this.description.value,
 			website: this.website.value,
 			email: this.email.value,
-			image: (this.image.search('data:image') === -1) ? 'no_change' : this.image,
+			// image: (this.image.search('data:image') === -1) ? 'no_change' : this.image,
+			image: (this.image.search('data:image') === -1) ? null : this.image,
 			id: this.existingVendor._id,
 			isEnabled: !(this.existingVendor.isEnabled === 'true')
 		};
@@ -195,7 +197,7 @@ export class EditVendorComponent {
 						});
 
 						if (_response.code === 0) {
-							$this.router.navigate(['vendors']);
+							$this.router.navigate(['home']);
 						}
 					}
 				});

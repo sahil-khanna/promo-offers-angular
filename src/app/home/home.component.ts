@@ -1,7 +1,5 @@
 import { Component , AfterViewInit} from '@angular/core';
 import { ConstantsService } from '../common/service/constants.service';
-import { StorageService } from '../common/service/storage.service';
-import { GlobalsService } from '../common/service/globals.service';
 
 @Component({
 	selector: 'app-home',
@@ -10,18 +8,20 @@ import { GlobalsService } from '../common/service/globals.service';
 })
 export class HomeComponent implements AfterViewInit {
 
-	private selectedTabId: Number;
+	private selectedTabIndex: Number;
 	private homeLoaded: Boolean = false;
 
 	constructor(
-		private constants: ConstantsService,
-		private storage: StorageService,
-		private globals: GlobalsService
+		private constants: ConstantsService
 	) { }
 
 	ngAfterViewInit() {
 		setTimeout(() => {
 			this.homeLoaded = true;
 		}, 0);
+	}
+
+	onTabChanged(tabIndex: Number) {
+		this.selectedTabIndex = tabIndex;
 	}
 }

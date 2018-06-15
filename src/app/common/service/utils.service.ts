@@ -1,16 +1,13 @@
 import { Injectable, Injector } from '@angular/core';
 import { Location } from '@angular/common';
-import { AlertHelper } from './alert-helper.service';
 import { StorageService } from './storage.service';
 import { WebServiceService } from './web-service.service';
 import { GlobalsService } from './globals.service';
 import { Router } from '@angular/router';
-import { ConstantsService } from './constants.service';
 
 @Injectable()
 export class Utils {
 
-	private alertHelper: AlertHelper;
 	private storage: StorageService;
 	private webservice: WebServiceService;
 
@@ -18,19 +15,18 @@ export class Utils {
 		private injector: Injector,
 		private router: Router,
 		private location: Location,
-		private globals: GlobalsService,
-		private constants: ConstantsService
+		private globals: GlobalsService
 	) {
-		const $this = this;
 		setTimeout(() => {
-			$this.alertHelper = $this.injector.get(AlertHelper);
-			$this.storage = $this.injector.get(StorageService);
-			$this.webservice = $this.injector.get(WebServiceService);
-		});
+			this.storage = this.injector.get(StorageService);
+			this.webservice = this.injector.get(WebServiceService);
+		}, 0);
 	}
 
 	public showLoadingIndicator(value: boolean, message?: string) {
-		this.globals.showLoading = value;
+		setTimeout(() => {
+			this.globals.showLoading = value;
+		}, 0);
 	}
 
 	public nullToObject(sourceType, targetType) {

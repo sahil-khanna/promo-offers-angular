@@ -87,7 +87,7 @@ const appRoutes = [
 		WebServiceService,
 		GlobalsService,
 		ConstantsService,
-		{ provide: RouteReuseStrategy, useClass: CustomReuseStrategy }
+		// { provide: RouteReuseStrategy, useClass: CustomReuseStrategy }
 	],
 	bootstrap: [AppComponent]
 })

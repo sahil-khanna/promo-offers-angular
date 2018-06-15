@@ -1,4 +1,4 @@
-<app-vendors *ngIf="homeLoaded == true && globals.selectedTabId == constants.TAB_VENDORS"></app-vendors>
-<app-offers *ngIf="homeLoaded == true && globals.selectedTabId == constants.TAB_OFFERS"></app-offers>
-<app-more *ngIf="globals.selectedTabId == constants.TAB_MORE"></app-more>
-<app-tab-bar></app-tab-bar>
+<app-vendors *ngIf="homeLoaded == true && selectedTabIndex === constants.TAB_VENDORS"></app-vendors>
+<app-offers *ngIf="homeLoaded == true && selectedTabIndex === constants.TAB_OFFERS"></app-offers>
+<app-more *ngIf="selectedTabIndex === constants.TAB_MORE"></app-more>
+<app-tab-bar (tabChanged)="onTabChanged($event)"></app-tab-bar>

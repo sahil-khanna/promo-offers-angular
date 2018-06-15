@@ -23,10 +23,9 @@ export class VendorsComponent {
 		private globals: GlobalsService,
 		private constants: ConstantsService
 	) {
-		if (!this.storage.getDataForKey(this.constants.TOKEN)) {
+		if ((this.globals.token = this.storage.getDataForKey(this.constants.TOKEN)) === null) {
 			this.router.navigate(['login']);
 		} else {
-			this.globals.token = this.storage.getDataForKey(this.constants.TOKEN);
 			this.refreshList();
 		}
 	}
