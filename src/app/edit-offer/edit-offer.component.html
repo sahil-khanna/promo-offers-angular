@@ -1,0 +1,98 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <mat-icon (click)="utils.goBack()">arrow_back</mat-icon>
+    <span>New Offer</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="col-md-6 col-md-offset-3">
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+    <mat-form-field>
+      <input type="text" matInput placeholder="Title" formControlName="title" minlength="5" maxlength="150" required> 
+    </mat-form-field>
+    <div class="form-error-message" *ngIf="title.errors && (title.dirty || title.touched)">
+      <p *ngIf="title.errors.required">Title is required</p>
+      <p *ngIf="title.errors.minlength">Title must be atleast {{title.errors.minlength.requiredLength}} characters long</p>
+    </div>
+
+    <mat-form-field>
+      <textarea matInput placeholder="Description" formControlName="description" minlength="20" maxlength="500" required></textarea>
+    </mat-form-field>
+    <div class="form-error-message" *ngIf="description.errors && (description.dirty || description.touched)">
+      <p *ngIf="description.errors && description.errors.required">Description is required</p>
+      <p *ngIf="description.errors.minlength">Description must be atleast {{description.errors.minlength.requiredLength}} characters long</p>
+    </div>
+
+    <mat-form-field>
+      <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="offerStart" placeholder="Offer Start Date" formControlName="offerStart" required>
+      <mat-datepicker-toggle matSuffix [for]="offerStart"></mat-datepicker-toggle>
+      <mat-datepicker #offerStart></mat-datepicker>
+    </mat-form-field>
+    <div class="form-error-message" *ngIf="offerStart.errors && (offerStart.dirty || offerStart.touched)">
+      <p *ngIf="offerStart.errors.required">Offer Start Date is required</p>
+    </div>
+
+    <mat-form-field>
+      <!-- TODO: Offer End Date should not be less than offer start date -->
+      <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="offerEnd" placeholder="Offer End Date" formControlName="offerEnd" required>
+      <mat-datepicker-toggle matSuffix [for]="offerEnd"></mat-datepicker-toggle>
+      <mat-datepicker #offerEnd></mat-datepicker>
+    </mat-form-field>
+    <div class="form-error-message" *ngIf="offerEnd.errors && (offerEnd.dirty || offerEnd.touched)">
+      <p *ngIf="offerEnd.errors.required">Offer End Date is required</p>
+    </div>
+
+    <mat-form-field>
+      <mat-select placeholder="Offer type" formControlName="offerType" required>
+        <mat-option [value]="'percent'">Percent</mat-option>
+        <mat-option [value]="'amount'">Amount</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="form-error-message" *ngIf="offerType.errors && (offerType.dirty || offerType.touched)">
+      <p *ngIf="offerType.errors.required">Offer Type is required</p>
+    </div>
+
+    <mat-form-field>
+      <input type="tel" matInput placeholder="Min. Purchase Amount" formControlName="minPurchaseAmount" pattern="^[1-9][0-9]{0,4}$" maxlength="5">
+    </mat-form-field>
+    <div class="form-error-message" *ngIf="minPurchaseAmount.errors && (minPurchaseAmount.dirty || minPurchaseAmount.touched)">
+      <p *ngIf="minPurchaseAmount.errors.required">Min. Purchase Amount is required</p>
+      <p *ngIf="minPurchaseAmount.errors.pattern">Min. Purchase Amount should be numeric and should not begin with 0</p>
+    </div>
+
+    <div *ngIf="offerType.value === 'percent'">
+      <mat-form-field>
+        <input type="tel" matInput placeholder="Discount Percent" formControlName="discountPercent" pattern="^[1-9][0-9]?$|^100$" maxlength="3" required>
+      </mat-form-field>
+      <div class="form-error-message" *ngIf="discountPercent.errors && (discountPercent.dirty || discountPercent.touched)">
+        <p *ngIf="discountPercent.errors.required">Discount Percent is required</p>
+        <p *ngIf="discountPercent.errors.pattern">Discount Percent cannot begin with 0 and should be between 1-100</p>
+      </div>
+    </div>
+
+    <div *ngIf="offerType.value === 'percent'">
+      <mat-form-field>
+        <input type="tel" matInput placeholder="Max. Discount Amount" formControlName="maxDiscountAmount" pattern="^[1-9][0-9]{0,4}$" maxlength="5">
+      </mat-form-field>
+      <div class="form-error-message" *ngIf="maxDiscountAmount.errors && (maxDiscountAmount.dirty || maxDiscountAmount.touched)">
+        <p *ngIf="maxDiscountAmount.errors.required">Max. Discount Amount is required</p>
+        <p *ngIf="maxDiscountAmount.errors.pattern">Max. Discount Amount cannot begin with 0</p>
+      </div>
+    </div>
+
+    <div *ngIf="offerType.value === 'amount'">
+      <mat-form-field>
+        <input type="tel" matInput placeholder="Fixed Discount Amount" formControlName="fixedDiscountAmount" pattern="^[1-9][0-9]?$|^100$" maxlength="3" required>
+      </mat-form-field>
+      <div class="form-error-message" *ngIf="fixedDiscountAmount.errors && (fixedDiscountAmount.dirty || fixedDiscountAmount.touched)">
+        <p *ngIf="fixedDiscountAmount.errors.required">Fixed Discount Amount is required</p>
+        <p *ngIf="fixedDiscountAmount.errors.pattern">Fixed Discount Amount cannot begin with 0 and should be between 1-100</p>
+      </div>
+    </div>
+
+    <br><br>
+    
+    <p style="text-align: center">
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </p>
+  </form>
+</div>

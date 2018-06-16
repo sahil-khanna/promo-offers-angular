@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ConstantsService {
 
+	// Date Format
+	public readonly DATE_FORMAT_DD_MM_YYYY = 'DD-MM-YYYY';
 	// Storage
 	public readonly USER_PROFILE: String = 'user-profile';
 	public readonly TOKEN: String = 'token';

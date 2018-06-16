@@ -1,7 +1,8 @@
 interface WebServiceParams {
 	method: 'login' | 'register' | 'activate-account' | 'forgot-password' |
 	'reset-password' | 'logout' | 'profile' | 'contribute' | 'contributions'|
-	'vendors' | 'create-vendor' | 'update-vendor' | 'delete-vendor';
+	'vendors' | 'create-vendor' | 'update-vendor' | 'delete-vendor' |
+	'offers' | 'create-offer' | 'update-offer' | 'delete-offer';
 	body?: any;
 	urlParams?: any;
 	priority: 'high' | 'low';
@@ -138,7 +139,8 @@ export class WebServiceService {
 			case 'activate-account':
 			case 'forgot-password':
 			case 'contributions':
-			case 'vendors': {
+			case 'vendors':
+			case 'offers': {
 				reqParams = {
 					type: 'GET',
 					url: this.baseUrl + '/' + payload.method + '/' + this.processURLParameters(payload.urlParams)
@@ -177,6 +179,30 @@ export class WebServiceService {
 				};
 				break;
 			}
+			case 'create-offer': {
+				reqParams = {
+					type: 'POST',
+					body: payload.body,
+					url: this.baseUrl + '/' + 'offers' + '/' + this.processURLParameters(payload.urlParams)
+				};
+				break;
+			}
+			case 'update-offer': {
+				reqParams = {
+					type: 'PUT',
+					body: payload.body,
+					url: this.baseUrl + '/' + 'offers' + '/' + this.processURLParameters(payload.urlParams)
+				};
+				break;
+			}
+			case 'delete-offer': {
+				reqParams = {
+					type: 'DELETE',
+					url: this.baseUrl + '/' + 'offers' + '/' + this.processURLParameters(payload.urlParams)
+				};
+				break;
+			}
+
 			default:
 				break;
 		}

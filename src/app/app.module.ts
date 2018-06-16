@@ -24,10 +24,10 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { ProfileComponent } from './profile/profile.component';
 import { TabBarComponent } from './tab-bar/tab-bar.component';
 import { MoreComponent } from './more/more.component';
-import { CustomReuseStrategy } from './custom-reuse-strategy';
+// import { CustomReuseStrategy } from './custom-reuse-strategy';
 import { MyContributionsComponent } from './my-contributions/my-contributions.component';
 import { ContributeComponent } from './contribute/contribute.component';
-import { OfferComponent } from './offer/offer.component';
+import { EditOfferComponent } from './edit-offer/edit-offer.component';
 import { VendorsComponent } from './vendors/vendors.component';
 import { EditVendorComponent } from './edit-vendor/edit-vendor.component';
 import { ConstantsService } from './common/service/constants.service';
@@ -45,7 +45,7 @@ const appRoutes = [
 	{ path: 'contribute', component: ContributeComponent },
 	{ path: 'profile', component: ProfileComponent },
 	{ path: 'more', component: MoreComponent, reuseComponent: true },
-	{ path: 'offer', component: OfferComponent },
+	{ path: 'edit-offer', component: EditOfferComponent },
 	{ path: 'vendors', component: VendorsComponent, reuseComponent: false },
 	{ path: 'edit-vendor', component: EditVendorComponent }
 ];
@@ -64,7 +64,7 @@ const appRoutes = [
 		MoreComponent,
 		MyContributionsComponent,
 		ContributeComponent,
-		OfferComponent,
+		EditOfferComponent,
 		VendorsComponent,
 		EditVendorComponent,
 		OffersComponent
