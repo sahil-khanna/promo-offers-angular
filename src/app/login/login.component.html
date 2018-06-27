@@ -6,7 +6,8 @@
 <div class="col-md-6 col-md-offset-3">
   <form [formGroup]="form" (ngSubmit)="login()" class="form">
     <mat-form-field class="full-width">
-      <input type="email" matInput placeholder="E-Mail" formControlName="email" minlength="8" maxlength="50" required pattern="^\w+[\w-\.]*\@\w+((-\w+)|(\w*))\.[a-z]{2,3}$">
+      <!-- TODO CHanged email attribute from patters. Change error message as well -->
+      <input type="email" matInput placeholder="E-Mail" formControlName="email" minlength="8" maxlength="50" required email>
     </mat-form-field>
     <div class="form-error-message" *ngIf="email.errors && (email.dirty || email.touched)">
       <p *ngIf="email.errors.required">E-Mail is required</p>

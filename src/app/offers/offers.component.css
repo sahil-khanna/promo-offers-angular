@@ -1,0 +1,19 @@
+.offer-icon {
+    width: 36px;
+    height: 36px;
+    display: block;
+    border-radius: 50%;
+}
+
+.offer-name {
+    margin-left: 10px;
+    width: 68%;
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}
+
+.offer-status {
+    font-size: x-small;
+    margin-top: 16px;
+    margin-left: -10px;
+}

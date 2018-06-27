@@ -68,40 +68,38 @@ export class EditOfferComponent {
 		this.activatedRoute.queryParams.subscribe((params: any) => {
 			if (JSON.stringify(params).length > 2) {
 				$this.existingOffer = params;
-				// $this.name.disable();
-				// this.email.disable();
-				// $this.fillData();
+				$this.fillData();
 			}
 		});
 	}
 
 	private fillData() {
 		if (this.existingOffer) {
-			// this.title.setValue(this.existingVendor.name);
-			// this.description.setValue(this.existingVendor.description);
-			// this.email.setValue(this.existingVendor.email);
-			// this.website.setValue(this.existingVendor.website);
-			// this.image = this.existingVendor.image ? this.existingVendor.image : this.constants.IMAGE_PLACEHOLDER;
+			this.title.setValue(this.existingOffer.name);
+			this.description.setValue(this.existingOffer.description);
+			this.offerStart.setValue(this.existingOffer.offerStart);
+			this.offerEnd.setValue(this.existingOffer.offerEnd);
+			this.offerType.setValue(this.existingOffer.type);
+			this.minPurchaseAmount.setValue(this.existingOffer.minPurchaseAmount);
+			this.fixedDiscountAmount.setValue(this.existingOffer.fixedDiscountAmount);
+			this.discountPercent.setValue(this.existingOffer.discountPercent);
+			this.maxDiscountAmount.setValue(this.existingOffer.maxDiscountAmount);
 		} else {
-			// this.name.setValue('');
-			// this.description.setValue('');
-			// this.email.setValue('');
-			// this.website.setValue('');
-			// this.image = this.constants.IMAGE_PLACEHOLDER;
+			this.title.setValue('');
+			this.description.setValue('');
+			this.offerStart.setValue('');
+			this.offerEnd.setValue('');
+			this.offerType.setValue('');
 		}
 	}
 
 	private submit() {
 		if (this.form.invalid) {
-			this.title.markAsTouched();
-			this.description.markAsTouched();
-			this.offerStart.markAsTouched();
-			this.offerEnd.markAsTouched();
-			this.offerType.markAsTouched();
-			this.minPurchaseAmount.markAsTouched();
-			this.maxDiscountAmount.markAsTouched();
-			this.discountPercent.markAsTouched();
-			this.fixedDiscountAmount.markAsTouched();
+			for (const key in this.form.controls) {
+				if (this.form.controls.hasOwnProperty(key)) {
+					this.form.controls[key].markAsTouched();
+				}
+			}
 			return;
 		}
 

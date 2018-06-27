@@ -4,8 +4,9 @@
 </div>
 <mat-list class="list-item">
   <mat-list-item *ngFor="let offer of offers" [routerLink]="['/edit-offer']" [queryParams]="offer">
-      <mat-icon class="offer-status" [style.color]="offer.status ? 'green': 'red'">lens</mat-icon>
-      <div class="offer-name">{{ offer.name }}</div>
+      <mat-icon *ngIf="roleId === constants.ROLE_VENDOR" class="offer-status" [style.color]="offer.status ? 'green': 'red'">lens</mat-icon>
+      <img *ngIf="roleId === constants.ROLE_USER" src="{{offer.imagePath}}" class="offer-icon"/>
+      <div class="offer-name">{{ offer.title }}</div>
       <mat-icon class="list-item-more">keyboard_arrow_right</mat-icon>
   </mat-list-item>
 </mat-list>

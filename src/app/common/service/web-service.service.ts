@@ -28,7 +28,7 @@ interface CurrentlyExecuting {
 }
 
 import { Injectable, Injector } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { Utils } from './utils.service';
 import { StorageService } from './storage.service';

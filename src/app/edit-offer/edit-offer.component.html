@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
     <mat-icon (click)="utils.goBack()">arrow_back</mat-icon>
-    <span>New Offer</span>
+    <span>{{ existingOffer ? 'Update Offer' : 'New Offer'}}</span>
   </mat-toolbar-row>
 </mat-toolbar>
 <div class="col-md-6 col-md-offset-3">

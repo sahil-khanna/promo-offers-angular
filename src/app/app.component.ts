@@ -11,18 +11,19 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
 
-	private roleId;
-
 	constructor(
 		private globals: GlobalsService,
 		private router: Router,
 		private storage: StorageService,
 		private constants: ConstantsService
 	) {
-		if ((this.globals.token = this.storage.getDataForKey(this.constants.TOKEN)) == null) {
+		if ((this.globals.token = this.storage.getDataForKey(this.constants.TOKEN)) == null) {// TODO: use AuthGuard - activatedRoute, RouteSnapShot
 			this.router.navigate(['login']);
 		} else {
 			this.router.navigate(['home']);
 		}
+
+		// TODO: show login screen of the token has expired
+		// TODO: implement logic on token expiration
 	}
 }
